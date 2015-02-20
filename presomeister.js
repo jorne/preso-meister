@@ -11,7 +11,6 @@ var votes = {};
 // Global functions.
 var checkAuth = function (req, res, next) {
   //console.log(('query ',req.query));
-  next();
   if (req.query.user == 'meister' && req.query.password == 'preso123') {
     next()
   } else {
@@ -76,7 +75,6 @@ app.get('/presentations/', function(req, res){
 
 // Vote
 app.get('/vote', function (req, res) {
-	console.log(votes[req.query.topic]);
 	var v = votes[req.query.topic];
 	if (v) {
 		res.send(votes[req.query.topic]);
@@ -85,7 +83,6 @@ app.get('/vote', function (req, res) {
 	}
 })
 app.post('/vote', function (req, res) {
-	console.log("Vote post");
 	addVote(req.query.topic, req.query.value);
 	res.send(votes[req.query.topic]);
 })
