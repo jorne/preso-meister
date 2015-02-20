@@ -2943,13 +2943,7 @@
 					if( indexv > 0 ) url += '/' + indexv;
 				}
 
-				if(config.type === "meister") {
-					socket.emit('slidenav', url);
-					console.log('slidenav: ' + url);
-				}
-
 				window.location.hash = url;
-
 			}
 		}
 
