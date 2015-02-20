@@ -3,6 +3,7 @@ angular.module('app', [])
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
+        $scope.presentationLoaded = false;
       }
 
       $scope.setType = function(type){
@@ -47,15 +48,7 @@ angular.module('app', [])
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
-                      var presentationName = 'preso.html';
-                      var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=';
-                      $http.post(url).
-                        success(function(data) {
-                          console.log('presentationName is set')
-                          setSlides(presentationName);
-                        }).
-                        error(function(data) {
-                        });
+
                 }else{
                       $scope.password = "";
                       alert('Wrong password')
@@ -68,6 +61,29 @@ angular.module('app', [])
         }
       }
 
+      $scope.stopPresentation = function(){
+        console.log('stopPresentation');
+        setPresentationName('');
+        $scope.presentationLoaded = false;
+      }
+
+      $scope.choosePresentation = function(name){
+        name = 'preso.html';
+        setPresentationName(name);
+      }
+
+
+      var setPresentationName = function(presentationName){
+        $scope.presentationLoaded = true;
+        var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=' + presentationName;
+        $http.post(url).
+          success(function(data) {
+            console.log('presentationName is set');
+            setSlides(presentationName);
+          }).
+          error(function(data) {
+          });
+      }
       var setSlides = function(name){
           $scope.incPresentationUrl = '/presentationSlides/' + name;
       }
