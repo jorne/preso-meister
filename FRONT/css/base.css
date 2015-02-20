@@ -186,3 +186,19 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   margin-top: 10px;
   text-align: center;
 }
+#presentationInactiveContainer{
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: 50%;
+}
+#presentationInactive{
+  display: inline-block;
+  width: auto;
+  padding: 20px;
+  background:#555555;
+  -webkit-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+  -moz-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+  box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+}

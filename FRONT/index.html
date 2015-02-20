@@ -40,7 +40,9 @@
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
-			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
+			<div id="presentationInactiveContainer">
+				<div id="presentationInactive" ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
+			</div>
 			<div id="presentationsOverview" ng-show="!presentationLoaded && type === 'meister'">
 				<div id="presentationSelector" ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">
 					<i class="fa fa-picture-o "></i>
@@ -49,10 +51,10 @@
 			</div>
  			<div class="buttonsBackground">
 				<div class="userName">
-					<button onclick="follow()" id="">Follow</button>
+					<button onclick="follow()" id="" ng-show="type === 'viewer'">Follow</button>
 					<span>Hello {{userName}}</span>
 				</div>
-				<a href="" ng-click="stopPresentation()">STOP PRESENTATION</a>
+				<a href="" ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'">STOP PRESENTATION</a>
 			</div>
 		</div>
 
@@ -88,9 +90,6 @@
 				following = true;
 				window.location.hash = meisterSlide;
 			}
-
-
-
     </script>
 	</body>
 </html>
