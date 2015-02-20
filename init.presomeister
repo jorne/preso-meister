@@ -18,21 +18,6 @@ NAME=presomeister
 # App name
 DESC=presomeister
 
-## Don't edit this file
-## Edit user configuation in /etc/default/presomeister to change
-##
-## SB_USER=         #$RUN_AS, username to run presomeister under, the default is presomeister
-## SB_HOME=         #$APP_PATH, the location of SickBeard.py, the default is /opt/presomeister
-## SB_DATA=         #$DATA_DIR, the location of presomeister.db, cache, logs, the default is /opt/presomeister
-## SB_PIDFILE=      #$PID_FILE, the location of presomeister.pid, the default is /var/run/presomeister/presomeister.pid
-## PYTHON_BIN=      #$DAEMON, the location of the python binary, the default is /usr/bin/python
-## SB_OPTS=         #$EXTRA_DAEMON_OPTS, extra cli option for presomeister, i.e. " --config=/home/presomeister/config.ini"
-## SSD_OPTS=        #$EXTRA_SSD_OPTS, extra start-stop-daemon option like " --group=users"
-##
-## EXAMPLE if want to run as different user
-## add SB_USER=username to /etc/default/presomeister
-## otherwise default presomeister is used
-
 ## The defaults
 # Run as username
 RUN_AS=pi
@@ -47,7 +32,7 @@ DATA_DIR=/home/pi/preso-meister
 PID_FILE=/var/run/presomeister/presomeister.pid
 
 # path to python bin
-DAEMON=node
+DAEMON=/usr/local/bin/node
 
 # Extra daemon option like: SB_OPTS=" --config=/home/presomeister/config.ini"
 EXTRA_DAEMON_OPTS=
@@ -57,7 +42,7 @@ EXTRA_SSD_OPTS=
 ##
 
 PID_PATH=`dirname $PID_FILE`
-DAEMON_OPTS=" presomeister.js --pidfile=${PID_FILE} --datadir=${DATA_DIR} ${EXTRA_DAEMON_OPTS}"
+DAEMON_OPTS=" presomeister.js"
 
 ##
 
@@ -87,18 +72,19 @@ fi
 case "$1" in
     start)
         echo "Starting $DESC"
-        start-stop-daemon -d $APP_PATH -c $RUN_AS $EXTRA_SSD_OPTS --start --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
+        start-stop-daemon -d $APP_PATH -c $RUN_AS --start --background --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
         ;;
 
     stop)
         echo "Stopping $DESC"
         start-stop-daemon --stop --pidfile $PID_FILE --retry 5 --oknodo
+	rm $PID_FILE
         ;;
 
     restart|force-reload)
         echo "Restarting $DESC"
         start-stop-daemon --stop --pidfile $PID_FILE --retry 5 --oknodo
-        start-stop-daemon -d $APP_PATH -c $RUN_AS $EXTRA_SSD_OPTS --start --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
+        start-stop-daemon -d $APP_PATH -c $RUN_AS --start --background --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
         ;;
 
     status)
