@@ -56,11 +56,20 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
       var socket = io();
+			var meisterSlide;
+			var following = true;
 
       socket.on('slidenav', function(msg){
-				console.log('slidenav: ' + msg);
-				window.location.hash = msg;
+				console.log('slidenav: ' + msg + ' following: ' + following);
+				meisterSlide = msg;
+				if(following) {
+					follow();
+				}
       });
+
+			var follow = function() {
+				window.location.hash = meisterSlide;
+			}
 
     </script>
 	</body>
