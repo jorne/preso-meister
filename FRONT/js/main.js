@@ -1,10 +1,13 @@
 angular.module('app', [])
-  .controller('presoController', ['$scope', '$http',
-    function($scope, $http) {
+  .controller('presoController', ['$scope', '$http', '$timeout',
+    function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
+      }
+
+      $scope.finishedLoading = function(){
+        console.log('FINISHED LOADING')
         initializeReveal();
-        
       }
 
       $scope.logIn = function(){
