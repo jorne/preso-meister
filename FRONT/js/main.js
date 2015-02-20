@@ -3,6 +3,7 @@ angular.module('app', [])
     function($scope, $http) {
       var initizalize = function(){
         initializeReveal();
+        
       }
 
 

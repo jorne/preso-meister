@@ -171,7 +171,7 @@ body {
   height: 110px;
   z-index: 30;
   right: 10px;
-  bottom: 0px;
+  bottom: -8px;
   -webkit-user-select: none; }
 
 .reveal .controls div {

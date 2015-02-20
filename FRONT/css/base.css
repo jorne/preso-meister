@@ -1,0 +1,8 @@
+.buttonsBackground{
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  z-index: 29;
+  bottom: 0px;
+  background-color: #333;
+}
