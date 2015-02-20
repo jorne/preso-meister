@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
 
 var presentationName = "";
 
@@ -40,7 +41,7 @@ app.post('/presentationName/', checkAuth, function(req, res){
     res.send('{\'ok\':\'Presentation selected: '+presentationName+'\'}');
   } else {
     presentationName = "";
-    res.send('{\'ok\':\'No pesentation selected.'}');
+    res.send('{\'ok\':\'No pesentation selected.\'}');
   }
 });
 
