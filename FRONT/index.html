@@ -14,7 +14,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
 		<link rel="stylesheet" href="css/base.css">
 
 		<!-- Code syntax highlighting -->
@@ -41,9 +41,11 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
 			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
-			<div class="presentationSelector" ng-show="!presentationLoaded && type === 'meister'">
-				<button ng-click="choosePresentation('preso.html')">preso.html</button>
-				<button ng-click="choosePresentation('cap.html')">cap.html</button>
+			<div id="presentationsOverview" ng-show="!presentationLoaded && type === 'meister'">
+				<div id="presentationSelector" ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">
+					<i class="fa fa-picture-o "></i>
+					<span>{{presentation | split:'.html':0}}</span>
+				</div>
 			</div>
  			<div class="buttonsBackground">
 				<div class="userName">
@@ -65,17 +67,23 @@
 		<script src="js/main.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-      var socket = io();
+      		var socket = io();
 			var meisterSlide;
 			var following = true;
 
-      socket.on('slidenav', function(msg){
+      		socket.on('slidenav', function(msg){
 				console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
 				}
-      });
+      		});
+
+
+      		socket.on('presentationStopped', function(msg){
+				console.log(msg);
+				location.reload();
+      		});
 
 			var follow = function() {
 				following = true;

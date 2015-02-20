@@ -1,9 +1,11 @@
 var app = angular.module('app', []);
-  app.controller('presoController', ['$scope', '$http', '$timeout',
+
+app.controller('presoController', ['$scope', '$http', '$timeout',
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
+        $scope.presentations = [];
       }
 
       $scope.setType = function(type){
@@ -11,7 +13,6 @@ var app = angular.module('app', []);
       }
 
       $scope.finishedLoading = function(){
-        console.log('finished')
         initializeReveal();
       }
 
@@ -21,7 +22,6 @@ var app = angular.module('app', []);
           Reveal.setUserType($scope.type);
           var getPresentationName = function(){
               var url = '/presentationName/';
-              console.log('check presentationName')
               $http.get(url).
                 success(function(data){
                   if (data === ""){
@@ -49,7 +49,7 @@ var app = angular.module('app', []);
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
-
+                      loadPresentations();
                 }else{
                       $scope.password = "";
                       alert('Wrong password')
@@ -63,16 +63,34 @@ var app = angular.module('app', []);
       }
 
       $scope.stopPresentation = function(){
-        console.log('stopPresentation');
         setPresentationName('');
         $scope.presentationLoaded = false;
+
+        socket.emit('presentationStopped', 'ended');
       }
 
       $scope.choosePresentation = function(name){
-        console.log(name)
         setPresentationName(name);
       }
 
+      $scope.getImageUrl = function(name){
+        var urlArray  = name.split('.html');
+        var url = '/presentationSlides/' + urlArray[0] + '.jpg';
+        console.log(url);
+        return url;
+      }
+
+      var loadPresentations = function(){
+        var url = '/presentations/';
+        $http.get(url).
+          success(function(data){
+            $scope.presentations = data;
+          }).
+          error(function(data) {
+            console.log('error:' + data)
+          });
+
+      }
 
       var setPresentationName = function(presentationName){
         $scope.presentationLoaded = true;
@@ -128,3 +146,10 @@ var app = angular.module('app', []);
       }
     }
   ]);
+
+app.filter('split', function() {
+        return function(input, splitChar, splitIndex) {
+            // do some bounds checking here to ensure it has that index
+            return input.split(splitChar)[splitIndex];
+        }
+    });

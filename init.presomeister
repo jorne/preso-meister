@@ -20,7 +20,7 @@ DESC=presomeister
 
 ## The defaults
 # Run as username
-RUN_AS=pi
+RUN_AS=root
 
 # Path to app SB_HOME=path_to_app_SickBeard.py
 APP_PATH=/home/pi/preso-meister
