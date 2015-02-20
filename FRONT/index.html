@@ -63,11 +63,26 @@
 			</div>
 			<div class="buttonsBackground"></div>
 		</div>
-		
+
 
 		<script src="lib/js/head.min.js"></script>
 		<script src="lib/js/reveal.js"></script>
 		<script src="lib/js/angular.js"></script>
 		<script src="js/main.js"></script>
+		<!--
+		<script src="js/socket.js"></script>
+	-->
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+      var socket = io();
+
+      socket.on('slidenav', function(msg){
+        // Do something
+				// window.location.hash = url; e.g. "#/1"
+				console.log('message: ' + msg);
+				window.location.hash = msg;
+      });
+
+    </script>
 	</body>
 </html>
