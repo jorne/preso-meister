@@ -2,14 +2,27 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
+
+var presentationName = "";
 
 var checkAuth = function (req, res, next) {
-  console.log(('query ',req.query));
+  //console.log(('query ',req.query));
   if (req.query.user == 'meister' && req.query.password == 'preso123') {
     next()
   } else {
-    res.send('error');
+    res.send('Unauthorized');
   }
+};
+
+var readFiles = function (dir) {
+	fs.readdir(dir, function (err, files) {
+		if (err) {
+			console.log(err);
+			return [];
+		}
+		return files;
+	});
 };
 
 // RestURLs
@@ -29,9 +42,22 @@ app.get('/chat/', function(req, res){
   res.sendFile('/FRONT/chat.html', {"root": __dirname});
 });
 // Presentations
-app.get('/presentations/', function(req, res){
-  res.sendFile('/presentations/test.html', {"root": __dirname});
+app.get('/presentationName/', function(req, res){
+  res.send(presentationName);
 });
+app.post('/presentationName/', checkAuth, function(req, res){
+  if (req.query.presentationName) {
+    presentationName = req.query.presentationName;
+    res.send('ok');
+  } else {
+    presentationName = "";
+    res.send('nok');
+  }
+});
+app.get('/presentations/', function(req, res){
+  res.send(readFiles(__dirname + '/presentations/presentationSlides'));
+});
+
 
 app.get('/vote', function (req, res) {
   res.send(('Vote: %j', req.query))
@@ -43,6 +69,7 @@ app.use("/js", express.static(__dirname + '/FRONT/js'));
 app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
 app.use("/partials", express.static(__dirname + '/FRONT/partials'));
+app.use("/presentationSlides", express.static(__dirname + '/presentations/presentationSlides'));
 
 // Chat
 io.on('connection', function(socket){
