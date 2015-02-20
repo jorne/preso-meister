@@ -37,9 +37,10 @@ app.get('/presentationName/', function(req, res){
 app.post('/presentationName/', checkAuth, function(req, res){
   if (req.query.presentationName) {
     presentationName = req.query.presentationName;
-	res.send('{\'ok\':\'Presentation selected: '+presentationName+'\'}');
+    res.send('{\'ok\':\'Presentation selected: '+presentationName+'\'}');
   } else {
-    res.send('error');
+    presentationName = "";
+    res.send('{\'ok\':\'No pesentation selected.'}');
   }
 });
 
