@@ -2948,7 +2948,6 @@
 				}
 
 				if(config.type === "meister") {
-					console.log('changing')
 					socket.emit('slidenav', url);
 					console.log('slidenav: ' + url);
 				}

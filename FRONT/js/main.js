@@ -1,5 +1,5 @@
-angular.module('app', [])
-  .controller('presoController', ['$scope', '$http', '$timeout',
+var app = angular.module('app', []);
+  app.controller('presoController', ['$scope', '$http', '$timeout',
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
@@ -23,7 +23,7 @@ angular.module('app', [])
               var url = '/presentationName/';
               console.log('check presentationName')
               $http.get(url).
-                success(function(data){                  
+                success(function(data){
                   if (data === ""){
                     $timeout(function() {
                       getPresentationName();
@@ -43,7 +43,7 @@ angular.module('app', [])
             getPresentationName();
           }, 1000);
         }else{
-          var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;  
+          var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;
           $http.post(url).
             success(function(data) {
                 if (data === "ok"){
@@ -114,5 +114,17 @@ angular.module('app', [])
 
 
       initizalize();
+    }
+  ]);
+
+  app.controller('question', ['$scope',
+    function($scope) {
+      var questionRaised = false;
+      $scope.ask = function(){
+        console.log('question: ' + $scope.userName);
+        questionRaised = true;
+        socket.emit('question', $scope.userName);
+        console.log('question: ' + $scope.userName);
+      }
     }
   ]);

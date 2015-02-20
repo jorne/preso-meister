@@ -51,11 +51,12 @@
 					<span>Hello {{userName}}</span>
 				</div>
 				<a href="" ng-click="stopPresentation()">STOP PRESENTATION</a>
+				<a href="" ng-controller="question" ng-click="ask()">Question</a>
 			</div>
 		</div>
 
 
-		
+
 
 
 		<script src="lib/js/head.min.js"></script>
@@ -80,9 +81,6 @@
 				following = true;
 				window.location.hash = meisterSlide;
 			}
-
-
-
     </script>
 	</body>
 </html>
