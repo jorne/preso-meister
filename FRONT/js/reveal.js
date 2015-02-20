@@ -268,6 +268,10 @@
 
 	}
 
+	function setUserType(type){
+		config.type = type;
+	}
+
 	/**
 	 * Inspect the client to see what it's capable of, this
 	 * should only happens once per runtime.

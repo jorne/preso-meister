@@ -19,9 +19,11 @@ angular.module('app', [])
       $scope.logIn = function(){
         if ($scope.type === "viewer"){
           $scope.loggedIn = true;
+          setUserType($scope.type);
         }else{
           if($scope.password === "preso-meister"){
             $scope.loggedIn = true;
+            setUserType($scope.type);
           }else{
             $scope.password = "";
             alert('Wrong password')
@@ -39,7 +41,6 @@ angular.module('app', [])
           history: true,
           center: true,
 
-          type: $scope.type,
 
 
           transition: 'slide', // none/fade/slide/convex/concave/zoom
