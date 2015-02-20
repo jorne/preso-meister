@@ -1,5 +1,5 @@
-angular.module('app', [])
-  .controller('presoController', ['$scope', '$http', '$timeout',
+var app = angular.module('app', []);
+app.controller('presoController', ['$scope', '$http', '$timeout',
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
@@ -12,7 +12,6 @@ angular.module('app', [])
       }
 
       $scope.finishedLoading = function(){
-        console.log('finished')
         initializeReveal();
       }
 
@@ -22,7 +21,6 @@ angular.module('app', [])
           Reveal.setUserType($scope.type);
           var getPresentationName = function(){
               var url = '/presentationName/';
-              console.log('check presentationName')
               $http.get(url).
                 success(function(data){                  
                   if (data === ""){
@@ -64,7 +62,6 @@ angular.module('app', [])
       }
 
       $scope.stopPresentation = function(){
-        console.log('stopPresentation');
         setPresentationName('');
         $scope.presentationLoaded = false;
 
@@ -72,8 +69,14 @@ angular.module('app', [])
       }
 
       $scope.choosePresentation = function(name){
-        console.log(name)
         setPresentationName(name);
+      }
+
+      $scope.getImageUrl = function(name){
+        var urlArray  = name.split('.html');
+        var url = '/presentationSlides/' + urlArray[0] + '.jpg';
+        console.log(url);
+        return url;
       }
 
       var loadPresentations = function(){
@@ -81,7 +84,6 @@ angular.module('app', [])
         $http.get(url).
           success(function(data){                  
             $scope.presentations = data;
-            console.log($scope.presentations);
           }).
           error(function(data) {
             console.log('error:' + data)
@@ -131,3 +133,10 @@ angular.module('app', [])
       initizalize();
     }
   ]);
+
+app.filter('split', function() {
+        return function(input, splitChar, splitIndex) {
+            // do some bounds checking here to ensure it has that index
+            return input.split(splitChar)[splitIndex];
+        }
+    });

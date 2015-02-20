@@ -145,7 +145,44 @@ padding:10px 15px;
 position:relative;
 background:#555555;
 border-radius:3px;
+-webkit-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+-moz-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
 }
 #mainlogin .password{
   margin-top: -10px;
+}
+
+#presentationsOverview{
+  margin: 100px 50px;
+}
+#presentationSelector{
+  display: inline-block;
+  background:#555555;
+  width: 150px;
+  height: 80px;
+  -webkit-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+  -moz-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+  box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+  margin: 15px;
+}
+
+#presentationSelector span{
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  position: relative;
+  margin-top: 2px;
+  width: 100%;
+
+  text-align: center;
+}
+
+#presentationSelector .fa{
+  display: block;
+  font-size: 40px;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
 }

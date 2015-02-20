@@ -41,8 +41,12 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
 			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
-			<div class="presentationSelector" ng-show="!presentationLoaded && type === 'meister'">
-				<button ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">{{presentation}}</li>
+			<div id="presentationsOverview" ng-show="!presentationLoaded && type === 'meister'">
+				<div id="presentationSelector" ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">
+					<i class="fa fa-picture-o "></i>
+					<span>{{presentation | split:'.html':0}}</span>
+
+				</div>
 			</div>
  			<div class="buttonsBackground">
 				<div class="userName">
