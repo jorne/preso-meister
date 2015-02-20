@@ -31,7 +31,7 @@ app.get('/chat/', function(req, res){
   res.sendFile('/FRONT/chat.html', {"root": __dirname});
 });
 // Presentations
-app.get('/presentationName/', checkAuth, function(req, res){
+app.get('/presentationName/', function(req, res){
   res.send(presentationName);
 });
 app.post('/presentationName/', checkAuth, function(req, res){
