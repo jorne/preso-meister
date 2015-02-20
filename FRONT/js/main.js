@@ -23,6 +23,9 @@ angular.module('app', [])
           history: true,
           center: true,
 
+          type:'meister',
+
+
           transition: 'slide', // none/fade/slide/convex/concave/zoom
 
           // Optional reveal.js plugins
