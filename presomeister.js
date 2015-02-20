@@ -18,7 +18,10 @@ app.get('/presentations/', function(req, res){
   res.sendFile('/presentations/revealjs.html', {"root": __dirname});
 });
 
-app.use(express.static(__dirname + '/FRONT'));
+app.use("/css", express.static(__dirname + '/FRONT/css'));
+app.use("/js", express.static(__dirname + '/FRONT/js'));
+app.use("/lib", express.static(__dirname + '/FRONT/lib'));
+app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
 
 io.on('connection', function(socket){
   console.log('a user connected');
