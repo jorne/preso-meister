@@ -19,11 +19,11 @@ angular.module('app', [])
       $scope.logIn = function(){
         if ($scope.type === "viewer"){
           $scope.loggedIn = true;
-          setUserType($scope.type);
+          Reveal.setUserType($scope.type);
         }else{
           if($scope.password === "preso-meister"){
             $scope.loggedIn = true;
-            setUserType($scope.type);
+            Reveal.setUserType($scope.type);
           }else{
             $scope.password = "";
             alert('Wrong password')

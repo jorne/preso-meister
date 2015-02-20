@@ -268,6 +268,10 @@
 
 	}
 
+	function setUserType(type){
+		config.type = type;
+	}
+
 	/**
 	 * Inspect the client to see what it's capable of, this
 	 * should only happens once per runtime.
@@ -2944,6 +2948,7 @@
 				}
 
 				if(config.type === "meister") {
+					console.log('changing')
 					socket.emit('slidenav', url);
 					console.log('slidenav: ' + url);
 				}
@@ -4125,6 +4130,7 @@
 
 	Reveal = {
 		initialize: initialize,
+		setUserType: setUserType,
 		configure: configure,
 		sync: sync,
 
