@@ -16,13 +16,8 @@ var checkAuth = function (req, res, next) {
 };
 
 var readFiles = function (dir) {
-	fs.readdir(dir, function (err, files) {
-		if (err) {
-			console.log(err);
-			return [];
-		}
-		return files;
-	});
+  console.log('Reading files in: '+dir);
+	return fs.readdirSync(dir);
 };
 
 // RestURLs
@@ -55,7 +50,8 @@ app.post('/presentationName/', checkAuth, function(req, res){
   }
 });
 app.get('/presentations/', function(req, res){
-  res.send(readFiles(__dirname + '/presentations/presentationSlides'));
+	var files = readFiles(__dirname + '/presentations/presentationSlides');
+  res.send(files.filter(function(file){return file.indexOf('.html')>-1}));
 });
 
 
