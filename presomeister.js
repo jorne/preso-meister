@@ -11,6 +11,9 @@ app.get('/', function(req, res){
 app.get('/meister/', function(req, res){
   res.sendFile('/FRONT/meister.html', {"root": __dirname});
 });
+app.get('/chat/', function(req, res){
+  res.sendFile('/FRONT/chat.html', {"root": __dirname});
+});
 
 app.use(express.static(__dirname + '/FRONT'));
 
