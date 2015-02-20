@@ -3,7 +3,6 @@ angular.module('app', [])
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
-
       }
 
       $scope.setType = function(type){
@@ -11,6 +10,7 @@ angular.module('app', [])
       }
 
       $scope.finishedLoading = function(){
+        console.log('finished')
         initializeReveal();
       }
 
@@ -18,23 +18,44 @@ angular.module('app', [])
         if ($scope.type === "viewer"){
           $scope.loggedIn = true;
           Reveal.setUserType($scope.type);
+          $timeout(function() {
+              var url = '/presentationName/';
+              console.log('check presentationName')
+  
+              $http.get(url).
+                success(function(data){
+                  console.log(data)
+                  $scope.incPresentationUrl = data;
+                }).
+                error(function(data) {
+
+                });
+          }, 1000);
+
         }else{
           var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;  
           $http.post(url).
-            success(function(data, status, headers, config) {
+            success(function(data) {
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
+                      var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=preso.html';
+                      $http.post(url).
+                        success(function(data) {
+                          console.log('presentationName is set')
+                        }).
+                        error(function(data) {
+                          console.log('presentationName is not set')
+                        });
                 }else{
                       $scope.password = "";
                       alert('Wrong password')
                 }
             }).
-            error(function(data, status, headers, config) {
+            error(function(data) {
                 $scope.password = "";
                 alert('Wrong password')
             });
-        
         }
       }
 
