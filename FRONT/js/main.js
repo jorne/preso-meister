@@ -2,10 +2,15 @@ angular.module('app', [])
   .controller('presoController', ['$scope', '$http',
     function($scope, $http) {
       var initizalize = function(){
+        $scope.loggedIn = false;
         initializeReveal();
         
       }
 
+      $scope.logIn = function(){
+        $scope.loggedIn = true;
+        console.log($scope.userName);
+      }
 
       var initializeReveal = function(){
         console.log('test')
