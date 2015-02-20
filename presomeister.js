@@ -18,7 +18,7 @@ app.get('/chat/', function(req, res){
 });
 // Presentations
 app.get('/presentations/', function(req, res){
-  res.sendFile('/presentations/revealjs.html', {"root": __dirname});
+  res.sendFile('/presentations/test.html', {"root": __dirname});
 });
 
 // Load only resources.

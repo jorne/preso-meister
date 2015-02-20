@@ -1,10 +1,13 @@
 angular.module('app', [])
-  .controller('presoController', ['$scope', '$http',
-    function($scope, $http) {
+  .controller('presoController', ['$scope', '$http', '$timeout',
+    function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
+      }
+
+      $scope.finishedLoading = function(){
+        console.log('FINISHED LOADING')
         initializeReveal();
-        
       }
 
       $scope.logIn = function(){
@@ -19,6 +22,9 @@ angular.module('app', [])
           progress: true,
           history: true,
           center: true,
+
+          type:'meister',
+
 
           transition: 'slide', // none/fade/slide/convex/concave/zoom
 

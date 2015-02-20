@@ -16,3 +16,149 @@
     top:50%;
     margin:-100px 0 0 -150px;
 }
+
+.userName{
+	position:relative;
+  width: 100%;
+  text-align: center;
+}
+
+body{
+font-family:verdana;
+} 
+                                
+#loginform
+{
+width:450px;
+height:auto;
+position:relative;
+margin:0 auto;
+}
+
+input
+{
+margin:10px auto 15px;
+border-radius:5px;
+background: #333333;
+width:85%;
+padding:12px 20px 12px 10px;
+border:none;
+color:#929999;                       
+box-shadow:inset 0px 1px 5px #272727;
+font-size:0.8em;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease; 
+}
+
+input:focus
+{
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;  
+box-shadow: 0px 0px 5px 1px #161718;
+}
+
+button
+{
+background: #ff5f32;
+border-radius:50%;
+border:10px solid #222526;
+font-size:0.9em;
+color:#fff;
+font-weight:bold;
+cursor:pointer;
+width:85px;
+height:85px;
+position:absolute;
+right: -42px;
+top: 54px;
+text-align:center;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;
+}
+
+button:hover
+{
+background:#222526;
+border-color:#ff5f32;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;
+}
+
+button i
+{
+font-size:20px;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;
+}
+
+button:hover i
+{
+color:#ff5f32;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;
+}
+  
+*:focus{outline:none;}
+::-webkit-input-placeholder {
+color:#929999;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+color:#929999; 
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+color:#929999;  
+}
+
+:-ms-input-placeholder {  
+color:#929999; 
+}
+
+h1
+{
+text-align:center;
+color:#fff;
+font-size:13px;
+padding:12px 0px;
+}
+
+a:hover
+{
+color:#fff;
+margin-left:5px;
+-webkit-transition:0.5s ease;
+-moz-transition:0.5s ease;
+-o-transition:0.5s ease;
+-ms-transition:0.5s ease;
+transition:0.5s ease;
+}
+
+#mainlogin
+{
+float:left;
+width:300px;
+height:150px;
+padding:10px 15px;
+position:relative;
+background:#555555;
+border-radius:3px;
+}
