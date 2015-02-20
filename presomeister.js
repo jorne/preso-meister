@@ -3,6 +3,15 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var checkAuth = function (req, res, next) {
+  console.log(('query ',req.query));
+  if (req.query.user == 'meister' && req.query.password == 'preso') {
+    next()
+  } else {
+    res.send('error');
+  }
+};
+
 // RestURLs
 // Presentation
 app.get('/', function(req, res){
@@ -12,6 +21,9 @@ app.get('/', function(req, res){
 app.get('/meister/', function(req, res){
   res.sendFile('/FRONT/meister.html', {"root": __dirname});
 });
+app.post('/meister/', checkAuth, function(req, res){
+  res.send('ok');
+});
 // Chat
 app.get('/chat/', function(req, res){
   res.sendFile('/FRONT/chat.html', {"root": __dirname});
@@ -20,6 +32,10 @@ app.get('/chat/', function(req, res){
 app.get('/presentations/', function(req, res){
   res.sendFile('/presentations/revealjs.html', {"root": __dirname});
 });
+
+app.get('/vote', function (req, res) {
+  res.send(('Vote: %j', req.query))
+})
 
 // Load only resources.
 app.use("/css", express.static(__dirname + '/FRONT/css'));
