@@ -18,7 +18,8 @@ angular.module('app', [])
         if ($scope.type === "viewer"){
           $scope.loggedIn = true;
           Reveal.setUserType($scope.type);
-          $timeout(function() {
+
+          var getPresentationName = function(){
               var url = '/presentationName/';
               console.log('check presentationName')
   
@@ -26,10 +27,22 @@ angular.module('app', [])
                 success(function(data){
                   console.log(data)
                   $scope.incPresentationUrl = data;
+                  if (data === ""){
+                    $timeout(function() {
+                      getPresentationName();
+                    }, 1000);
+                  }
                 }).
                 error(function(data) {
-
+                    $timeout(function() {
+                      getPresentationName();
+                    }, 1000);
                 });
+          }
+
+
+          $timeout(function() {
+            getPresentationName();
           }, 1000);
 
         }else{
@@ -39,7 +52,7 @@ angular.module('app', [])
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
-                      var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=preso.html';
+                      var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=';
                       $http.post(url).
                         success(function(data) {
                           console.log('presentationName is set')
