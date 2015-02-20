@@ -42,9 +42,11 @@
 
 			<div ng-include="'../presentations/'" onload="finishedLoading()"></div>
 			<div class="buttonsBackground">
+				<button onclick="follow()" id="">Follow</button>
 				<div class="userName">
 					<span>Hello {{userName}}</span>
 				</div>
+
 			</div>
 		</div>
 
@@ -68,8 +70,11 @@
       });
 
 			var follow = function() {
+				following = true;
 				window.location.hash = meisterSlide;
 			}
+
+
 
     </script>
 	</body>

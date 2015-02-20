@@ -2953,6 +2953,13 @@
 					console.log('slidenav: ' + url);
 				}
 
+				if(config.type === "viewer") {
+					if( meisterSlide !== url && meisterSlide !== undefined) {
+						console.log('Setting following to false');
+						following = false;
+					}
+				}
+
 				window.location.hash = url;
 
 			}
