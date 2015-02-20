@@ -162,3 +162,6 @@ position:relative;
 background:#555555;
 border-radius:3px;
 }
+.password{
+  margin-top: -10px;
+}

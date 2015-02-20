@@ -17,7 +17,17 @@ angular.module('app', [])
       }
 
       $scope.logIn = function(){
-        $scope.loggedIn = true;
+        if ($scope.type === "viewer"){
+          $scope.loggedIn = true;
+        }else{
+          if($scope.password === "preso-meister"){
+            $scope.loggedIn = true;
+          }else{
+            $scope.password = "";
+            alert('Wrong password')
+          }
+        }
+        
         console.log($scope.userName);
       }
 
