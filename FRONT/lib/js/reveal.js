@@ -2945,7 +2945,7 @@
 
 				if(config.type === "meister") {
 					socket.emit('slidenav', url);
-					console.log('message: ' + msg);
+					console.log('slidenav: ' + url);
 				}
 
 				window.location.hash = url;
