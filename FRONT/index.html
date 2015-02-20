@@ -42,8 +42,7 @@
 			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
 			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
 			<div class="presentationSelector" ng-show="!presentationLoaded && type === 'meister'">
-				<button ng-click="choosePresentation('preso.html')">preso.html</button>
-				<button ng-click="choosePresentation('cap.html')">cap.html</button>
+				<button ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">{{presentation}}</li>
 			</div>
  			<div class="buttonsBackground">
 				<div class="userName">

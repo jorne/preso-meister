@@ -4,6 +4,7 @@ angular.module('app', [])
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
+        $scope.presentations = [];
       }
 
       $scope.setType = function(type){
@@ -49,7 +50,7 @@ angular.module('app', [])
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
-
+                      loadPresentations();
                 }else{
                       $scope.password = "";
                       alert('Wrong password')
@@ -73,6 +74,18 @@ angular.module('app', [])
         setPresentationName(name);
       }
 
+      var loadPresentations = function(){
+        var url = '/presentations/';
+        $http.get(url).
+          success(function(data){                  
+            $scope.presentations = data;
+            console.log($scope.presentations);
+          }).
+          error(function(data) {
+            console.log('error:' + data)
+          });
+
+      }
 
       var setPresentationName = function(presentationName){
         $scope.presentationLoaded = true;
