@@ -22,6 +22,11 @@ io.on('connection', function(socket){
 
 });
 
+<<<<<<< HEAD:SOCKET/index.js
 http.listen(3000, function(){
   console.log('listening on *:3000');
+=======
+http.listen(3001, function(){
+  console.log('listening on *:3001');
+>>>>>>> dfff9cee6424acc680403427bd6ebe26f0ae8699:_chat/index.js
 });
