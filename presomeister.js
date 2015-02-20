@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
 
 var presentationName = "";
 
@@ -37,10 +38,10 @@ app.get('/presentationName/', function(req, res){
 app.post('/presentationName/', checkAuth, function(req, res){
   if (req.query.presentationName) {
     presentationName = req.query.presentationName;
-    res.send('ok');
+    res.send('{\'ok\':\'Presentation selected: '+presentationName+'\'}');
   } else {
     presentationName = "";
-    res.send('notok');
+    res.send('{\'ok\':\'No pesentation selected.\'}');
   }
 });
 
