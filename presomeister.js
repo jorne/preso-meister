@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 
 var checkAuth = function (req, res, next) {
   console.log(('query ',req.query));
-  if (req.query.user == 'meister' && req.query.password == 'preso') {
+  if (req.query.user == 'meister' && req.query.password == 'preso123') {
     next()
   } else {
     res.send('error');

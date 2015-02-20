@@ -8,11 +8,9 @@ angular.module('app', [])
 
       $scope.setType = function(type){
         $scope.type = type;
-        console.log($scope.type);
       }
 
       $scope.finishedLoading = function(){
-        console.log('FINISHED LOADING')
         initializeReveal();
       }
 
@@ -21,20 +19,26 @@ angular.module('app', [])
           $scope.loggedIn = true;
           Reveal.setUserType($scope.type);
         }else{
-          if($scope.password === "preso-meister"){
-            $scope.loggedIn = true;
-            Reveal.setUserType($scope.type);
-          }else{
-            $scope.password = "";
-            alert('Wrong password')
-          }
-        }
+          var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;  
+          $http.post(url).
+            success(function(data, status, headers, config) {
+                if (data === "ok"){
+                      $scope.loggedIn = true;
+                      Reveal.setUserType($scope.type);
+                }else{
+                      $scope.password = "";
+                      alert('Wrong password')
+                }
+            }).
+            error(function(data, status, headers, config) {
+                $scope.password = "";
+                alert('Wrong password')
+            });
         
-        console.log($scope.userName);
+        }
       }
 
       var initializeReveal = function(){
-        console.log('test')
         Reveal.initialize({
           controls: true,
           progress: true,
