@@ -63,17 +63,23 @@
 		<script src="js/main.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-      var socket = io();
+      		var socket = io();
 			var meisterSlide;
 			var following = true;
 
-      socket.on('slidenav', function(msg){
+      		socket.on('slidenav', function(msg){
 				console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
 				}
-      });
+      		});
+
+
+      		socket.on('presentationStopped', function(msg){
+				console.log(msg);
+				location.reload();
+      		});
 
 			var follow = function() {
 				following = true;

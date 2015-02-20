@@ -84,6 +84,11 @@ io.on('connection', function(socket){
     io.emit('slidenav', msg);
   })
 
+  socket.on('presentationStopped', function(msg){
+    console.log('presentationStopped: ' + msg);
+    io.emit('presentationStopped', msg);
+  })
+
 });
 
 // Start server

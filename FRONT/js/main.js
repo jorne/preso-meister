@@ -67,6 +67,8 @@ angular.module('app', [])
         console.log('stopPresentation');
         setPresentationName('');
         $scope.presentationLoaded = false;
+
+        socket.emit('presentationStopped', 'ended');
       }
 
       $scope.choosePresentation = function(name){
