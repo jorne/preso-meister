@@ -3,6 +3,12 @@ angular.module('app', [])
     function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
+
+      }
+
+      $scope.setType = function(type){
+        $scope.type = type;
+        console.log($scope.type);
       }
 
       $scope.finishedLoading = function(){
@@ -23,7 +29,7 @@ angular.module('app', [])
           history: true,
           center: true,
 
-          type:'meister',
+          type: $scope.type,
 
 
           transition: 'slide', // none/fade/slide/convex/concave/zoom
