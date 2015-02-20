@@ -29,6 +29,7 @@ angular.module('app', [])
                       getPresentationName();
                     }, 1000);
                   }else{
+                    $scope.presentationLoaded = true;
                     setSlides(data);
                   }
                 }).
@@ -68,7 +69,7 @@ angular.module('app', [])
       }
 
       $scope.choosePresentation = function(name){
-        name = 'preso.html';
+        console.log(name)
         setPresentationName(name);
       }
 

@@ -35,7 +35,8 @@ position:relative;
 margin:0 auto;
 }
 
-input
+
+#mainlogin input
 {
 margin:10px auto 15px;
 border-radius:5px;
@@ -53,7 +54,7 @@ font-size:0.8em;
 transition:0.5s ease; 
 }
 
-input:focus
+#mainlogin input:focus
 {
 -webkit-transition:0.5s ease;
 -moz-transition:0.5s ease;
@@ -63,7 +64,7 @@ transition:0.5s ease;
 box-shadow: 0px 0px 5px 1px #161718;
 }
 
-button
+#mainlogin button
 {
 background: #ff5f32;
 border-radius:50%;
@@ -85,7 +86,7 @@ text-align:center;
 transition:0.5s ease;
 }
 
-button:hover
+#mainlogin button:hover
 {
 background:#222526;
 border-color:#ff5f32;
@@ -96,7 +97,7 @@ border-color:#ff5f32;
 transition:0.5s ease;
 }
 
-button i
+#mainlogin button i
 {
 font-size:20px;
 -webkit-transition:0.5s ease;
@@ -106,7 +107,7 @@ font-size:20px;
 transition:0.5s ease;
 }
 
-button:hover i
+#mainlogin button:hover i
 {
 color:#ff5f32;
 -webkit-transition:0.5s ease;
@@ -114,23 +115,6 @@ color:#ff5f32;
 -o-transition:0.5s ease;
 -ms-transition:0.5s ease;
 transition:0.5s ease;
-}
-  
-*:focus{outline:none;}
-::-webkit-input-placeholder {
-color:#929999;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-color:#929999; 
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-color:#929999;  
-}
-
-:-ms-input-placeholder {  
-color:#929999; 
 }
 
 h1
@@ -162,6 +146,6 @@ position:relative;
 background:#555555;
 border-radius:3px;
 }
-.password{
+#mainlogin .password{
   margin-top: -10px;
 }

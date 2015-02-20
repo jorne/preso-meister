@@ -39,16 +39,23 @@
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
-
-			<div ng-include="'../presentations/'" onload="finishedLoading()"></div>
-			<div class="buttonsBackground">
-				<button onclick="follow()" id="">Follow</button>
+			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
+			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
+			<div class="presentationSelector" ng-show="!presentationLoaded && type === 'meister'">
+				<button ng-click="choosePresentation('preso.html')">preso.html</button>
+				<button ng-click="choosePresentation('cap.html')">cap.html</button>
+			</div>
+ 			<div class="buttonsBackground">
 				<div class="userName">
+					<button onclick="follow()" id="">Follow</button>
 					<span>Hello {{userName}}</span>
 				</div>
-
+				<a href="" ng-click="stopPresentation()">STOP PRESENTATION</a>
 			</div>
 		</div>
+
+
+		
 
 
 		<script src="lib/js/head.min.js"></script>
