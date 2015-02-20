@@ -4,21 +4,36 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 
+// Global variables.
 var presentationName = "";
+var votes = {};
 
+// Global functions.
 var checkAuth = function (req, res, next) {
   //console.log(('query ',req.query));
-  next();
   if (req.query.user == 'meister' && req.query.password == 'preso123') {
     next()
   } else {
     res.send('Unauthorized');
   }
 };
-
 var readFiles = function (dir) {
   console.log('Reading files in: '+dir);
 	return fs.readdirSync(dir);
+};
+var addVote = function (topic, value) {
+  var t = votes[topic];
+	if (t) {
+	} else {
+		votes[topic] = {};
+	}
+	
+	var v = votes[topic][value];
+	if (v && v >= 0) {
+		votes[topic][value]++;
+	} else {
+		votes[topic][value] = 1;
+	}
 };
 
 // RestURLs
@@ -26,6 +41,7 @@ var readFiles = function (dir) {
 app.get('/', function(req, res){
   res.sendFile('/FRONT/index.html', {"root": __dirname});
 });
+
 // Controller
 app.get('/meister/', function(req, res){
   res.sendFile('/FRONT/meister.html', {"root": __dirname});
@@ -33,10 +49,12 @@ app.get('/meister/', function(req, res){
 app.post('/meister/', checkAuth, function(req, res){
   res.send('ok');
 });
+
 // Chat
 app.get('/chat/', function(req, res){
   res.sendFile('/FRONT/chat.html', {"root": __dirname});
 });
+
 // Presentations
 app.get('/presentationName/', function(req, res){
   res.send(presentationName);
@@ -55,9 +73,18 @@ app.get('/presentations/', function(req, res){
   res.send(files.filter(function(file){return file.indexOf('.html')>-1}));
 });
 
-
+// Vote
 app.get('/vote', function (req, res) {
-  res.send(('Vote: %j', req.query))
+	var v = votes[req.query.topic];
+	if (v) {
+		res.send(votes[req.query.topic]);
+	} else {
+		res.send({});
+	}
+})
+app.post('/vote', function (req, res) {
+	addVote(req.query.topic, req.query.value);
+	res.send(votes[req.query.topic]);
 })
 
 // Load only resources.
