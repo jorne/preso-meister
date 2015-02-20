@@ -39,14 +39,14 @@
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
-			<div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
-			<div ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
-			<div class="presentationSelector" ng-show="!presentationLoaded && type === 'meister'"><button ng-click="choosePresentation()">Preso.html</button></div>
- 			<div class="buttonsBackground">
+
+			<div ng-include="'../presentations/'" onload="finishedLoading()"></div>
+			<div class="buttonsBackground">
+				<button onclick="follow()" id="">Follow</button>
 				<div class="userName">
 					<span>Hello {{userName}}</span>
 				</div>
-				<a href="" ng-click="stopPresentation()">STOP PRESENTATION</a>
+
 			</div>
 		</div>
 
@@ -70,8 +70,11 @@
       });
 
 			var follow = function() {
+				following = true;
 				window.location.hash = meisterSlide;
 			}
+
+
 
     </script>
 	</body>
