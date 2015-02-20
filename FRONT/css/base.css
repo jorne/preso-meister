@@ -203,14 +203,22 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
 }
 
-.stopPresentation{
+.leftButton{
   position: absolute;
   bottom: 145px;
   left: 50px;
+}
+.secondLeftButton{
+  position: absolute;
+  bottom: 145px;
+  left: 150px;
 }
 .fa.fa-square{
   font-size: 50px;
 }
 .fa.fa-caret-right{
+  font-size: 50px;
+}
+.fa.fa-question{
   font-size: 50px;
 }
