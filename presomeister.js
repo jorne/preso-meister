@@ -19,6 +19,7 @@ app.get('/presentations/', function(req, res){
 });
 
 app.use(express.static(__dirname + '/FRONT'));
+app.use(express.static(__dirname + '/FRONT'));
 
 io.on('connection', function(socket){
   console.log('a user connected');
