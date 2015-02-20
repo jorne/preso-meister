@@ -15,6 +15,16 @@ var checkAuth = function (req, res, next) {
   }
 };
 
+var readFiles = function (dir) {
+	fs.readdir(dir, function (err, files) {
+		if (err) {
+			console.log(err);
+			return [];
+		}
+		return files;
+	});
+};
+
 // RestURLs
 // Presentation
 app.get('/', function(req, res){
@@ -38,12 +48,16 @@ app.get('/presentationName/', function(req, res){
 app.post('/presentationName/', checkAuth, function(req, res){
   if (req.query.presentationName) {
     presentationName = req.query.presentationName;
-    res.send('{\'ok\':\'Presentation selected: '+presentationName+'\'}');
+    res.send('ok');
   } else {
     presentationName = "";
-    res.send('{\'ok\':\'No pesentation selected.\'}');
+    res.send('nok');
   }
 });
+app.get('/presentations/', function(req, res){
+  res.send(readFiles(__dirname + '/presentations/presentationSlides'));
+});
+
 
 app.get('/vote', function (req, res) {
   res.send(('Vote: %j', req.query))
