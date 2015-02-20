@@ -50,11 +50,15 @@
 				</div>
 			</div>
  			<div class="buttonsBackground">
-				<div class="userName">
-					<button onclick="follow()" id="" ng-show="type === 'viewer'">Follow</button>
+				<div class="userName buttonStyle stopPresentati">
 					<span>Hello {{userName}}</span>
 				</div>
-				<a href="" ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'">STOP PRESENTATION</a>
+				<div class="buttonStyle stopPresentation">
+					<button onclick="follow()" id="" ng-show="type === 'viewer'"><i class="fa fa-caret-right"></i></button>
+				</div>
+				<div class="buttonStyle stopPresentation">
+					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
+				</div>
 			</div>
 		</div>
 
