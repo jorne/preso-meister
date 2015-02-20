@@ -9,7 +9,7 @@ app.get('/', function(req, res){
   res.send('<h1>Hello</h1>');
 });
 app.get('/presomeister/', function(req, res){
-  res.sendFile('/FRONT/index.html', {"root": __dirname+'/..'});
+  res.sendFile('/FRONT/index.html', {"root": __dirname});
 });
 
 app.use(express.static(__dirname + '/FRONT/'));
