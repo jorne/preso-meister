@@ -6,13 +6,13 @@ var io = require('socket.io')(http);
 
 // RestURLs
 app.get('/', function(req, res){
-  res.send('<h1>Hello</h1>');
-});
-app.get('/presomeister/', function(req, res){
   res.sendFile('/FRONT/index.html', {"root": __dirname});
 });
+app.get('/meister/', function(req, res){
+  res.sendFile('/FRONT/meister.html', {"root": __dirname});
+});
 
-app.use(express.static(__dirname + '/FRONT/'));
+app.use(express.static(__dirname + '/FRONT'));
 
 io.on('connection', function(socket){
   console.log('a user connected');
