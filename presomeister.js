@@ -26,6 +26,7 @@ app.use("/css", express.static(__dirname + '/FRONT/css'));
 app.use("/js", express.static(__dirname + '/FRONT/js'));
 app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
+app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 
 // Chat
 io.on('connection', function(socket){
