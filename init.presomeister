@@ -1,67 +1,124 @@
 #!/bin/sh
 #
-# /etc/init.d/presomeister
-# Subsystem file for "presomeister" server
-#
-# chkconfig: 2345 95 05
-# description: presomeister server daemon
-#
-# processname: presomeister
-# pidfile: /var/run/presomeister.pid
+### BEGIN INIT INFO
+# Provides:          presomeister
+# Required-Start:    $local_fs $network $remote_fs
+# Required-Stop:     $local_fs $network $remote_fs
+# Should-Start:      $NetworkManager
+# Should-Stop:       $NetworkManager
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts instance of presomeister
+# Description:       starts instance of presomeister using start-stop-daemon
+### END INIT INFO
 
-# source function library
-. /etc/rc.d/init.d/functions
+# Script name
+NAME=presomeister
 
-# pull in sysconfig settings
-#[ -f /etc/sysconfig/mySystem ] &amp;&amp; . /etc/sysconfig/mySystem
+# App name
+DESC=presomeister
 
-RETVAL=0
-prog="presomeister"
+## The defaults
+# Run as username
+RUN_AS=pi
 
-start() {	
-	echo -n $"Starting $prog:"
-	
-    sudo node /home/pi/preso-meister/$prog.js
-    
-	RETVAL=$?
-	[ "$RETVAL" = 0 ] &amp;&amp; touch /var/lock/subsys/$prog
-	echo
-}
+# Path to app SB_HOME=path_to_app_SickBeard.py
+APP_PATH=/home/pi/preso-meister
 
-stop() {	
-	echo -n $"Stopping $prog:"
-	
-    killproc $prog -TERM
-	RETVAL=$?
-	[ "$RETVAL" = 0 ] &amp;&amp; rm -f /var/lock/subsys/$prog
-	echo
-}
+# Data directory where presomeister.db, cache and logs are stored
+DATA_DIR=/home/pi/preso-meister
 
-case "$1" in	
-	start)
-		start
-		;;
-	stop)
-		stop
-		;;
-	restart)
-		stop
-		start
-		;;
-	condrestart)
-		if [ -f /var/lock/subsys/$prog ] ; then
-			stop
-			# avoid race
-			sleep 3
-			start
-		fi
-		;;
-	status)
-		status $prog
-		RETVAL=$?
-		;;
-	*)	
-		echo $"Usage: $0 {start|stop|restart|condrestart|status}"
-		RETVAL=1
+# Path to store PID file
+PID_FILE=/var/run/presomeister/presomeister.pid
+
+# path to python bin
+DAEMON=/usr/local/bin/node
+
+# Extra daemon option like: SB_OPTS=" --config=/home/presomeister/config.ini"
+EXTRA_DAEMON_OPTS=
+
+# Extra start-stop-daemon option like START_OPTS=" --group=users"
+EXTRA_SSD_OPTS=
+##
+
+PID_PATH=`dirname $PID_FILE`
+DAEMON_OPTS=" presomeister.js"
+
+##
+
+test -x $DAEMON || exit 0
+
+set -e
+
+# Create PID directory if not exist and ensure the SickBeard user can write to it
+if [ ! -d $PID_PATH ]; then
+    mkdir -p $PID_PATH
+    chown $RUN_AS $PID_PATH
+fi
+
+if [ ! -d $DATA_DIR ]; then
+    mkdir -p $DATA_DIR
+    chown $RUN_AS $DATA_DIR
+fi
+
+if [ -e $PID_FILE ]; then
+    PID=`cat $PID_FILE`
+    if ! kill -0 $PID > /dev/null 2>&1; then
+        echo "Removing stale $PID_FILE"
+        rm $PID_FILE
+    fi
+fi
+
+case "$1" in
+    start)
+        echo "Starting $DESC"
+        start-stop-daemon -d $APP_PATH -c $RUN_AS --start --background --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
+        ;;
+
+    stop)
+        echo "Stopping $DESC"
+        start-stop-daemon --stop --pidfile $PID_FILE --retry 5 --oknodo
+	rm $PID_FILE
+        ;;
+
+    restart|force-reload)
+        echo "Restarting $DESC"
+        start-stop-daemon --stop --pidfile $PID_FILE --retry 5 --oknodo
+        start-stop-daemon -d $APP_PATH -c $RUN_AS --start --background --make-pidfile --pidfile $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
+        ;;
+
+    status)
+        # Use LSB function library if it exists
+        if [ -f /lib/lsb/init-functions ]; then
+            . /lib/lsb/init-functions
+
+            if [ -e $PID_FILE ]; then
+                status_of_proc -p $PID_FILE "$DAEMON" "$NAME" && exit 0 || exit $?
+            else
+                log_daemon_msg "$NAME is not running"
+                exit 3
+            fi
+
+        else
+        # Use basic functions
+            if [ -e $PID_FILE ]; then
+                PID=`cat $PID_FILE`
+                if kill -0 $PID > /dev/null 2>&1; then
+                    echo " * $NAME is running"
+                    exit 0
+                fi
+            else
+                echo " * $NAME is not running"
+                exit 3
+            fi
+        fi
+        ;;
+
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
 esac
-exit $RETVAL
+
+exit 0

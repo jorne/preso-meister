@@ -1,14 +1,35 @@
 angular.module('app', [])
-  .controller('presoController', ['$scope', '$http',
-    function($scope, $http) {
+  .controller('presoController', ['$scope', '$http', '$timeout',
+    function($scope, $http, $timeout) {
       var initizalize = function(){
         $scope.loggedIn = false;
+
+      }
+
+      $scope.setType = function(type){
+        $scope.type = type;
+        console.log($scope.type);
+      }
+
+      $scope.finishedLoading = function(){
+        console.log('FINISHED LOADING')
         initializeReveal();
-        
       }
 
       $scope.logIn = function(){
-        $scope.loggedIn = true;
+        if ($scope.type === "viewer"){
+          $scope.loggedIn = true;
+          Reveal.setUserType($scope.type);
+        }else{
+          if($scope.password === "preso-meister"){
+            $scope.loggedIn = true;
+            Reveal.setUserType($scope.type);
+          }else{
+            $scope.password = "";
+            alert('Wrong password')
+          }
+        }
+        
         console.log($scope.userName);
       }
 
@@ -19,6 +40,8 @@ angular.module('app', [])
           progress: true,
           history: true,
           center: true,
+
+
 
           transition: 'slide', // none/fade/slide/convex/concave/zoom
 

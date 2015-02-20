@@ -268,6 +268,10 @@
 
 	}
 
+	function setUserType(type){
+		config.type = type;
+	}
+
 	/**
 	 * Inspect the client to see what it's capable of, this
 	 * should only happens once per runtime.
@@ -2943,7 +2947,14 @@
 					if( indexv > 0 ) url += '/' + indexv;
 				}
 
+				if(config.type === "meister") {
+					console.log('changing')
+					socket.emit('slidenav', url);
+					console.log('slidenav: ' + url);
+				}
+
 				window.location.hash = url;
+
 			}
 		}
 
@@ -4119,6 +4130,7 @@
 
 	Reveal = {
 		initialize: initialize,
+		setUserType: setUserType,
 		configure: configure,
 		sync: sync,
 

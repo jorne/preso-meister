@@ -1,0 +1,10 @@
+<div class="logIn" ng-hide="loggedIn">
+	<div id="mainlogin">
+		<h3>Enter username</h3>
+		<form >
+			<input type="text" placeholder="username" value="" ng-model="$parent.userName" autofocus required>
+			<input class="password" type="password" placeholder="password" value="" ng-model="$parent.password" autofocus required ng-show="type === 'meister'" >
+			<button type="submit" ng-click="logIn()"><i class="fa fa-arrow-right"></i></button>
+		</form>
+	</div>
+</div>

@@ -30,7 +30,7 @@ app.get('/chat/', function(req, res){
 });
 // Presentations
 app.get('/presentations/', function(req, res){
-  res.sendFile('/presentations/revealjs.html', {"root": __dirname});
+  res.sendFile('/presentations/test.html', {"root": __dirname});
 });
 
 app.get('/vote', function (req, res) {
@@ -42,6 +42,7 @@ app.use("/css", express.static(__dirname + '/FRONT/css'));
 app.use("/js", express.static(__dirname + '/FRONT/js'));
 app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
+app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 
 // Chat
 io.on('connection', function(socket){
@@ -54,6 +55,11 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
+
+  socket.on('slidenav', function(msg){
+    console.log('slidenav: ' + msg);
+    io.emit('slidenav', msg);
+  })
 
 });
 
