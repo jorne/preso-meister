@@ -18,19 +18,17 @@ angular.module('app', [])
         if ($scope.type === "viewer"){
           $scope.loggedIn = true;
           Reveal.setUserType($scope.type);
-
           var getPresentationName = function(){
               var url = '/presentationName/';
               console.log('check presentationName')
-  
               $http.get(url).
-                success(function(data){
-                  console.log(data)
-                  $scope.incPresentationUrl = data;
+                success(function(data){                  
                   if (data === ""){
                     $timeout(function() {
                       getPresentationName();
                     }, 1000);
+                  }else{
+                    setSlides(data);
                   }
                 }).
                 error(function(data) {
@@ -39,12 +37,9 @@ angular.module('app', [])
                     }, 1000);
                 });
           }
-
-
           $timeout(function() {
             getPresentationName();
           }, 1000);
-
         }else{
           var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;  
           $http.post(url).
@@ -52,13 +47,14 @@ angular.module('app', [])
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
+                      var presentationName = 'preso.html';
                       var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=';
                       $http.post(url).
                         success(function(data) {
                           console.log('presentationName is set')
+                          setSlides(presentationName);
                         }).
                         error(function(data) {
-                          console.log('presentationName is not set')
                         });
                 }else{
                       $scope.password = "";
@@ -70,6 +66,10 @@ angular.module('app', [])
                 alert('Wrong password')
             });
         }
+      }
+
+      var setSlides = function(name){
+          $scope.incPresentationUrl = '/presentationSlides/' + name;
       }
 
       var initializeReveal = function(){
