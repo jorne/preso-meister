@@ -39,6 +39,11 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
+  socket.on('slidenav', function(msg){
+    console.log('slidenav: ' + msg);
+    io.emit('slidenav', msg);
+  })
+
 });
 
 // Start server
