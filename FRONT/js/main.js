@@ -14,7 +14,8 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         reloadJavascriptVariables();
         $scope.takingNotes = false;
         $scope.notes = "";
-        $scope.emailAddress = "";3
+        $scope.emailAddress = '';
+        $scope.messageSent = '';
       }
 
       $scope.setType = function(type){
@@ -88,7 +89,8 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
 
         $http.post(url).
             success(function(data) {
-               
+               $scope.email = '';
+               $scope.messageSent = true
             }).
             error(function(data) {
                 alert('WERROR')
