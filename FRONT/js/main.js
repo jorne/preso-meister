@@ -11,6 +11,9 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         $scope.voteYesWidth = 0;
         $scope.voteNoWidth  = 0;
         reloadJavascriptVariables();
+        $scope.takingNotes = false;
+        $scope.notes = "";
+        $scope.emailAddress = "";3
       }
 
       $scope.setType = function(type){
@@ -76,6 +79,18 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
 
       $scope.choosePresentation = function(name){
         setPresentationName(name);
+      }
+
+      $scope.emailNotes = function(){
+        var url = '/notes?user=' + $scope.userName + '&email=' + $scope.email + '&message=' + $scope.notes; 
+
+        $http.post(url).
+            success(function(data) {
+               
+            }).
+            error(function(data) {
+                alert('WERROR')
+            });
       }
       
       // Voting

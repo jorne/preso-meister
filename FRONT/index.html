@@ -38,7 +38,15 @@
 	<div ng-show="!following" class="outOfSyncContainer">
 		<h3>You're Out Of Sync</h3>
 		<p>Press the play button in the toolbar to get back in sync.</p>
-
+	</div>
+	<div class="notesOverlay" ng-show="takingNotes">
+		<div class="notesContainer">
+			<h3>Enter your notes here:</h3>
+			<textarea rows="10" cols="80" ng-model="notes"></textarea>
+			<h3>Enter your email:</h3>
+			<input type="text" ng-model="email">
+			<button type="submit" ng-click="emailNotes()">Send notes via email</button>
+		</div>	
 	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
@@ -65,6 +73,9 @@
 				</div>
 				<div class="buttonStyle leftButton">
 					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
+				</div>
+				<div class="buttonStyle rightButton">
+					<button ng-click="takingNotes = !takingNotes"><i class="fa fa-pencil-square-o"></i></button>
 				</div>
 			</div>
 		</div>
