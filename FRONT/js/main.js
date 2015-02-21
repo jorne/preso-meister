@@ -104,13 +104,16 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       // Voting
       $scope.vote = function(topic, value){
           var url = '/vote?topic=' + topic + '&value=' + value;
-          $http.post(url).
-            success(function(data) {
-                $scope.voted = 1;
-            }).
-            error(function(data) {
-                //console.log(data)
-            });
+          if (!$scope.voted){
+              $http.post(url).
+              success(function(data) {
+                  $scope.voted = true;
+              }).
+              error(function(data) {
+                  //console.log(data)
+              });
+          }
+
       }
 
       $scope.ask = function(){
