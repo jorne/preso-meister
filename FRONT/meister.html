@@ -36,7 +36,15 @@
 	</head>
 
 	<body ng-controller="presoController" ng-init="setType('meister')" ng-cloak>
-
+		<div class="notesOverlay" ng-show="takingNotes">
+		<div class="notesContainer">
+			<h3>Enter your notes here:</h3>
+			<textarea rows="10" cols="80" ng-model="notes"></textarea>
+			<h3>Enter your email:</h3>
+			<input type="text" ng-model="email">
+			<button type="submit" ng-click="emailNotes()">Send notes to email</button>
+		</div>	
+	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
