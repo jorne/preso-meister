@@ -100,7 +100,6 @@ app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
 app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 app.use("/presentationSlides", express.static(__dirname + '/presentations/presentationSlides'));
-app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 
 // Chat
 io.on('connection', function(socket){
@@ -117,12 +116,17 @@ io.on('connection', function(socket){
   socket.on('slidenav', function(msg){
     console.log('slidenav: ' + msg);
     io.emit('slidenav', msg);
-  })
+  });
+
+  socket.on('question', function(msg){
+    console.log('question: ' + msg);
+    io.emit('question', msg);
+  });
 
   socket.on('presentationStopped', function(msg){
     console.log('presentationStopped: ' + msg);
     io.emit('presentationStopped', msg);
-  })
+  });
 
 });
 
