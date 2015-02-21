@@ -1,0 +1,8 @@
+Tags:CBP
+Preconditions:Go to environment <Environment>
+Argenta:
+#Enter username <Username>
+#Click on login
+#Verify username
+#Click on button right "1"
+#Verify out of sync

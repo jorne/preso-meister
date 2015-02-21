@@ -147,12 +147,17 @@ io.on('connection', function(socket){
   socket.on('slidenav', function(msg){
     console.log('slidenav: ' + msg);
     io.emit('slidenav', msg);
-  })
+  });
+
+  socket.on('question', function(msg){
+    console.log('question: ' + msg);
+    io.emit('question', msg);
+  });
 
   socket.on('presentationStopped', function(msg){
     console.log('presentationStopped: ' + msg);
     io.emit('presentationStopped', msg);
-  })
+  });
 
 });
 

@@ -85,7 +85,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       }
 
       $scope.emailNotes = function(){
-        var url = '/notes?user=' + $scope.userName + '&email=' + $scope.email + '&message=' + $scope.notes; 
+        var url = '/notes?user=' + $scope.userName + '&email=' + $scope.email + '&message=' + $scope.notes;
 
         $http.post(url).
             success(function(data) {
@@ -96,7 +96,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
                 alert('WERROR')
             });
       }
-      
+
       // Voting
       $scope.vote = function(topic, value){
           var url = '/vote?topic=' + topic + '&value=' + value;
@@ -108,7 +108,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
                 //console.log(data)
             });
       }
-      
+
       var initializeVote = function(){
           var url = '/vote';
           console.log(url);
@@ -120,17 +120,31 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
                 //console.log(data)
             });
       }
-      
+
       socketio.on('votes', function(data){
           $scope.voteCountYes = data.yes;
           $scope.voteCountNo  = data.no;
-          
+
           $scope.voteYesWidth = $scope.voteCountYes / ($scope.voteCountYes + $scope.voteCountNo) * 100;
           $scope.voteNoWidth  = $scope.voteCountNo / ($scope.voteCountYes + $scope.voteCountNo) * 100;
-          
+
           //console.log($scope.voteCountYes, $scope.voteCountNo);
       });
-      
+
+      $scope.questions = [];
+      // Receive question messages
+      socketio.on('question', function(data){
+        console.log('received question from: ' + data.userName);
+        if(data.questionRaised) {
+          $scope.questions.push(data.userName);
+        } else {
+          var index = $scope.questions.indexOf(data.userName);
+          $scope.questions.splice(index, 1);
+        }
+        console.log($scope.questions);
+      });
+
+
       var reloadJavascriptVariables= function(){
         $scope.following = $window.following;
         $timeout(function() {
@@ -191,23 +205,27 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
     }
   ]);
 
-  app.controller('question', ['$scope',
-    function($scope) {
+  app.controller('question', ['$scope','socketio',
+    function($scope, socketio) {
+
       $scope.questionRaised = false;
       $scope.ask = function(){
         $scope.questionRaised = !$scope.questionRaised;
         var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
         console.log(msg);
-        // msg.userName = $scope.userName;
-        // msg.questionRaised = $scope.questionRaised;
-        socket.emit('question', msg);
+        socketio.emit('question', msg, true);
         console.log('question: ' + msg);
+
       };
 
-      socket.on('question', function(msg){
-        console.log('received question from: ' + msg.userName);
-        //meisterSlide = msg;
-      });
+
+
+      // socket.on('question', function(msg){
+      //   console.log('received question from: ' + msg.userName);
+      //   //meisterSlide = msg;
+      // });
+
+
 
     }
   ]);
@@ -224,7 +242,7 @@ app.factory('socketio', function ($rootScope) {
   var socket = io.connect();
   return {
     on: function (eventName, callback) {
-      socket.on(eventName, function () {  
+      socket.on(eventName, function () {
         var args = arguments;
         $rootScope.$apply(function () {
           callback.apply(socket, args);
