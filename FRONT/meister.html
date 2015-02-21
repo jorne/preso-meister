@@ -43,7 +43,7 @@
 			<h3>Enter your email:</h3>
 			<input type="text" ng-model="email">
 			<button type="submit" ng-click="emailNotes()">Send notes to email</button>
-		</div>	
+		</div>
 	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
@@ -73,26 +73,26 @@
 		<script src="js/main.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-      		
+
       		socket = io();
 			var meisterSlide;
 			var following = true;
 
       		socket.on('slidenav', function(msg){
-				console.log('slidenav: ' + msg + ' following: ' + following);
+				// console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
 				}
       		});
       		socket.on('presentationStopped', function(msg){
-				console.log(msg);
+				// console.log(msg);
 				location.reload();
       		});
 
 			var follow = function() {
 				window.location.hash = meisterSlide;
-			}
+			};
     </script>
 	</body>
 </html>

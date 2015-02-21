@@ -134,25 +134,30 @@ app.use("/presentationSlides", express.static(__dirname + '/presentations/presen
 
 // Chat
 io.on('connection', function(socket){
-  console.log('a user connected');
+  // console.log('a user connected');
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    // console.log('user disconnected');
   });
 
   socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
+    // console.log('message: ' + msg);
     io.emit('chat message', msg);
   });
 
   socket.on('slidenav', function(msg){
-    console.log('slidenav: ' + msg);
+    // console.log('slidenav: ' + msg);
     io.emit('slidenav', msg);
-  })
+  });
+
+  socket.on('question', function(msg){
+    // console.log('question: ' + msg);
+    io.emit('question', msg);
+  });
 
   socket.on('presentationStopped', function(msg){
-    console.log('presentationStopped: ' + msg);
+    // console.log('presentationStopped: ' + msg);
     io.emit('presentationStopped', msg);
-  })
+  });
 
 });
 
