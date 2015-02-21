@@ -1,0 +1,17 @@
+<div class="slides" id="slides">
+    
+	<section class="light">
+		<h1>Capathon rulez</h1>
+        
+        <div style="width:80%; clear:both; background-color:gray; height:80px; margin:0 auto; padding:10px; ">
+            <div style="background-color:green; float:left; text-align:left; overflow:visible; width:{{voteYesWidth}}%"><span>Yes!</span></div>
+            <div style="background-color:red; float:right; text-align:right; overflow:visible; width:{{voteNoWidth}}% "><span>No.</span></div>
+        </div>
+        <form>
+            <button ng-click="$parent.vote('CapathonRulez', 'yes')">Yes!</button>
+            <button ng-click="$parent.vote('CapathonRulez', 'no')">No.</button>
+        </form>
+	</section>
+    
+    
+</div>

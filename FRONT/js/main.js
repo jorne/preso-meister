@@ -1,12 +1,14 @@
 var app = angular.module('app', []);
-
-app.controller('presoController', ['$scope', '$http', '$timeout','$window',
-    function($scope, $http, $timeout, $window) {
+app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
+    function($scope, $http, $timeout, socketio) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
         $scope.presentations = [];
-        reloadJavascriptVariables();
+        $scope.voteCountYes = 0;
+        $scope.voteCountNo  = 0;
+        $scope.voteYesWidth = 0;
+        $scope.voteNoWidth  = 0;
       }
 
       $scope.setType = function(type){
@@ -80,15 +82,29 @@ app.controller('presoController', ['$scope', '$http', '$timeout','$window',
         console.log(url);
         return url;
       }
-
-      var reloadJavascriptVariables = function(){
-          $scope.following = $window.following;
-          console.log($window.following)
-          console.log($scope.following)
-          $timeout(function() {
-            reloadJavascriptVariables();
-          }, 1000);
+      
+      // Voting
+      $scope.vote = function(topic, value){
+          var url = '/vote?topic=' + topic + '&value=' + value;  
+          $http.post(url).
+            success(function(data) {
+                //console.log(data)
+            }).
+            error(function(data) {
+                //console.log(data)
+            });
       }
+      
+      socketio.on('votes', function(data){
+          $scope.voteCountYes = data.yes;
+          $scope.voteCountNo  = data.no;
+          
+          $scope.voteYesWidth = $scope.voteCountYes / ($scope.voteCountYes + $scope.voteCountNo) * 100;
+          $scope.voteNoWidth  = $scope.voteCountNo / ($scope.voteCountYes + $scope.voteCountNo) * 100;
+          
+          //console.log($scope.voteCountYes, $scope.voteCountNo);
+      });
+      
 
       var loadPresentations = function(){
         var url = '/presentations/';
@@ -163,3 +179,28 @@ app.filter('split', function() {
             return input.split(splitChar)[splitIndex];
         }
     });
+
+
+app.factory('socketio', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});
