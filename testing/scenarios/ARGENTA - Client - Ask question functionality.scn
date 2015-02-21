@@ -1,0 +1,7 @@
+Tags:CBP
+Preconditions:Go to environment <Envorinment>
+Argenta:
+#Enter username <Username>
+#Click on login
+#Verify username
+#Click on I have a question

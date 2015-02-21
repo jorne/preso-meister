@@ -36,8 +36,7 @@
 
 	<body ng-controller="presoController" ng-init="setType('viewer')" ng-cloak>
 	<div ng-show="!following" class="outOfSyncContainer">
-		<h3>You're Out Of Sync</h3>
-		<p>Press the play button in the toolbar to get back in sync.</p>
+		<span>You're Out Of Sync. Press the play button in the toolbar to get back in sync.</span>
 	</div>
 	<div class="notesOverlay" ng-show="takingNotes">
 		<div class="notesContainer">
@@ -63,11 +62,14 @@
 				</div>
 			</div>
  			<div class="buttonsBackground">
-				<div class="userName buttonStyle stopPresentati">
+				<div class="userName buttonStyle">
 					<span>Hello {{userName}}</span>
 				</div>
-				<div class="buttonStyle leftButton">
-					<button ng-controller="question" ng-click="ask()"><i class="fa fa-question"></i></button>
+				<div class="buttonStyle leftButton question" ng-show="questionRaised">
+					<button  ng-click="ask()" ><i class="fa fa-question"></i></button>
+				</div>
+				<div  class="buttonStyle leftButton" ng-hide="questionRaised">
+					<button  ng-click="ask()" ><i class="fa fa-question"></i></button>
 				</div>
 				<div class="buttonStyle secondLeftButton" ng-show="!following">
 					<button onclick="follow()" id="" ng-show="type === 'viewer'" ><i class="fa fa-caret-right"></i></button>
@@ -105,7 +107,7 @@
 				location.reload();
       		});
 
-			var follow = function() {44
+			var follow = function() {
 				following = true;
 				window.location.hash = meisterSlide;
 			}
