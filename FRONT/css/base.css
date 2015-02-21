@@ -26,6 +26,10 @@
 body{
 font-family:verdana;
 } 
+
+.slides img {
+	border:0;
+}
                                 
 #loginform
 {

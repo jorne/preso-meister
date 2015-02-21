@@ -47,7 +47,7 @@
 			<input type="text" ng-model="email">
 			<button type="submit" ng-click="emailNotes()" ng-disabled="email === ''">Send notes to email</button>
 			<h3 ng-show="messageSent" style="color:green;">Message has been sent.</h3>
-		</div>	
+		</div>
 	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
@@ -92,7 +92,7 @@
 			var following = true;
 
       		socket.on('slidenav', function(msg){
-				console.log('slidenav: ' + msg + ' following: ' + following);
+				// console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
@@ -101,7 +101,7 @@
 
 
       		socket.on('presentationStopped', function(msg){
-				console.log(msg);
+				// console.log(msg);
 				location.reload();
       		});
 
