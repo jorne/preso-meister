@@ -95,6 +95,8 @@ public class Argenta
 	public void clickOnIHaveAQuestion()
 	{
 		browser.findElement(By.cssSelector("[ng-click=\"ask()\"]")).click();
+		
+		utils.wd.doWait(5);
 	}
 	
 	public void choosePresentation(String name)
@@ -149,7 +151,6 @@ public class Argenta
 		cgiInput.close();
 		
 		browser.get("http://192.168.101.198/meister#");
-		//clickOnButtonRight(2);
 	}
 	
 	public void clickOnStopPresentation()
@@ -161,6 +162,27 @@ public class Argenta
 	{
 		WebElement usernameInput = browser.findElement(By.cssSelector(".ng-pristine.ng-invalid.ng-invalid-required.ng-touched"));
 		assertTrue(usernameInput.isDisplayed());
+	}
+	
+	public void clickOnTakingNotes()
+	{
+		browser.findElement(By.cssSelector("[class=\"fa fa-pencil-square-o\"]")).click();
+	}
+	
+	public void fillInEmailForm(String text, String email)
+	{
+		WebElement textareaInput = browser.findElement(By.cssSelector("[ng-model=\"notes\"]"));
+		textareaInput.clear();
+		textareaInput.sendKeys(text);
+		
+		WebElement emailInput = browser.findElement(By.cssSelector("[ng-model=\"email\"]"));
+		emailInput.clear();
+		emailInput.sendKeys(email);
+	}
+	
+	public void clickOnSendEmail()
+	{
+		browser.findElement(By.cssSelector("[ng-click=\"emailNotes()\"]")).click();
 	}
 	
 	public void setUsername(String username)

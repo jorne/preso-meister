@@ -63,12 +63,12 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
                       loadPresentations();
                 }else{
                       $scope.password = "";
-                      alert('Wrong password')
+                      alert('Username or password incorrect.')
                 }
             }).
             error(function(data) {
                 $scope.password = "";
-                alert('Wrong password')
+                alert('Username or password incorrect.')
             });
         }
       }
