@@ -108,7 +108,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       }
       
       $scope.initializeVote = function(){
-          var url = '/vote;
+          var url = '/vote';
           console.log(url);
           $http.delete(url).
             success(function(data) {
