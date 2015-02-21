@@ -1,12 +1,6 @@
 var app = angular.module('app', []);
-<<<<<<< HEAD
 app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
     function($scope, $http, $timeout, socketio) {
-=======
-
-app.controller('presoController', ['$scope', '$http', '$timeout',
-    function($scope, $http, $timeout) {
->>>>>>> 24f1a080783e0828c93a195c318f8f7f0b7dc83b
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
@@ -177,7 +171,6 @@ app.filter('split', function() {
             return input.split(splitChar)[splitIndex];
         }
     });
-<<<<<<< HEAD
 
 
 app.factory('socketio', function ($rootScope) {
@@ -203,5 +196,3 @@ app.factory('socketio', function ($rootScope) {
     }
   };
 });
-=======
->>>>>>> 24f1a080783e0828c93a195c318f8f7f0b7dc83b
