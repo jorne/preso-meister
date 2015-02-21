@@ -1,0 +1,11 @@
+Tags:CBP
+Preconditions:Go to environment <Environment>
+Argenta:
+#Enter username <Username>
+#Enter password <Password>
+#Click on login
+#Verify username
+#Choose presentation <Presentation>
+#Click on button right <Click button right>
+#Click on stop presentation
+#Verify logout

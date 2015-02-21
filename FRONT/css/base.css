@@ -213,6 +213,12 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   bottom: 145px;
   left: 150px;
 }
+
+.rightButton{
+  position: absolute;
+  bottom: 145px;
+  right: 200px;
+}
 .fa.fa-square{
   font-size: 50px;
 }
@@ -221,4 +227,38 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
 }
 .fa.fa-question{
   font-size: 50px;
+}
+.fa.fa-pencil-square-o{
+  font-size: 50px;
+}
+.outOfSyncContainer{
+  width: 100%;  
+  background-image: -webkit-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+  background-image:      -o-linear-gradient(top, #f2dede 0%, #e7c3c3 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f2dede), to(#e7c3c3));
+  background-image:         linear-gradient(to bottom, #f2dede 0%, #e7c3c3 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2dede', endColorstr='#ffe7c3c3', GradientType=0);
+  background-repeat: repeat-x;
+  border-color: #dca7a7;
+  text-align: center;
+  position: relative;
+  color: #a94442;
+  padding: 5px;
+}
+.outOfSync{
+}
+
+.notesOverlay{
+  width: 100%;
+  height:100%;
+  background: #000;
+  opacity: 0.8;
+}
+
+.notesContainer{
+  color: #fff;
+  width: 600px;
+  position: relative;
+  display: block;
+  margin: auto;
 }

@@ -1,14 +1,21 @@
 var app = angular.module('app', []);
-app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
-    function($scope, $http, $timeout, socketio) {
+app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$window',
+    function($scope, $http, $timeout, socketio, $window) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
+
         $scope.presentations = [];
         $scope.voteCountYes = 0;
         $scope.voteCountNo  = 0;
-        $scope.voteYesWidth = 0;
-        $scope.voteNoWidth  = 0;
+        $scope.voteYesWidth = 50;
+        $scope.voteNoWidth  = 50;
+        $scope.voted = 0;
+        reloadJavascriptVariables();
+        $scope.takingNotes = false;
+        $scope.notes = "";
+        $scope.emailAddress = '';
+        $scope.messageSent = '';
       }
 
       $scope.setType = function(type){
@@ -52,6 +59,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
+                      initializeVote();
                       loadPresentations();
                 }else{
                       $scope.password = "";
@@ -76,11 +84,17 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         setPresentationName(name);
       }
 
-      $scope.getImageUrl = function(name){
-        var urlArray  = name.split('.html');
-        var url = '/presentationSlides/' + urlArray[0] + '.jpg';
-        console.log(url);
-        return url;
+      $scope.emailNotes = function(){
+        var url = '/notes?user=' + $scope.userName + '&email=' + $scope.email + '&message=' + $scope.notes;
+
+        $http.post(url).
+            success(function(data) {
+               $scope.email = '';
+               $scope.messageSent = true
+            }).
+            error(function(data) {
+                alert('WERROR')
+            });
       }
 
       // Voting
@@ -88,7 +102,19 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
           var url = '/vote?topic=' + topic + '&value=' + value;
           $http.post(url).
             success(function(data) {
+                $scope.voted = 1;
+            }).
+            error(function(data) {
                 //console.log(data)
+            });
+      }
+
+      var initializeVote = function(){
+          var url = '/vote';
+          console.log(url);
+          $http.delete(url).
+            success(function(data) {
+                //
             }).
             error(function(data) {
                 //console.log(data)
@@ -119,6 +145,13 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
       });
 
 
+      var reloadJavascriptVariables= function(){
+        $scope.following = $window.following;
+        $timeout(function() {
+          reloadJavascriptVariables();
+        }, 1000);
+      }
+
       var loadPresentations = function(){
         var url = '/presentations/';
         $http.get(url).
@@ -136,7 +169,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=' + presentationName;
         $http.post(url).
           success(function(data) {
-            console.log('presentationName is set');
             setSlides(presentationName);
           }).
           error(function(data) {

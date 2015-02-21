@@ -3,10 +3,31 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'presomeister@gmail.com',
+        pass: 'preso123'
+    }
+});
+var sentMail = function(user, email, message) {
+	transporter.sendMail({
+			from: 'presomeister@gmail.com',
+			to: email,
+			subject: 'Your Preso-Meister Notes',
+			text: 'Dear '+user
+				+',\n\nHere are your notes from the preso-meister presentation.\n\n'
+				+message
+				+'\n\nWe hope that you have enjoyed our presentation application. Please vote for us!\nBest regards,\n\nPreso-Meister'
+	});
+};
 
 // Global variables.
 var presentationName = "";
 var votes = {};
+var regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // Global functions.
 var checkAuth = function (req, res, next) {
@@ -88,9 +109,19 @@ app.post('/vote', function (req, res) {
 	res.send(votes[req.query.topic]);
 })
 app.delete('/vote', function (req, res) {
-	votes[req.query.topic] = {};
-	io.emit('votes', votes[req.query.topic]);
-	res.send(votes[req.query.topic]);
+	votes = {};
+	io.emit('votes', votes);
+	res.send(votes);
+})
+// Sent mail
+app.post('/notes', function (req, res) {
+	var email = req.query.email;
+	if (regexEmail.test(email)) {
+		sentMail(req.query.user, email, req.query.message);
+		res.send('ok');
+	} else {
+		res.send('error');
+	}
 })
 
 // Load only resources.
