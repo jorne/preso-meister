@@ -1,11 +1,12 @@
 var app = angular.module('app', []);
 
-app.controller('presoController', ['$scope', '$http', '$timeout',
-    function($scope, $http, $timeout) {
+app.controller('presoController', ['$scope', '$http', '$timeout','$window',
+    function($scope, $http, $timeout, $window) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
         $scope.presentations = [];
+        reloadJavascriptVariables();
       }
 
       $scope.setType = function(type){
@@ -78,6 +79,15 @@ app.controller('presoController', ['$scope', '$http', '$timeout',
         var url = '/presentationSlides/' + urlArray[0] + '.jpg';
         console.log(url);
         return url;
+      }
+
+      var reloadJavascriptVariables = function(){
+          $scope.following = $window.following;
+          console.log($window.following)
+          console.log($scope.following)
+          $timeout(function() {
+            reloadJavascriptVariables();
+          }, 1000);
       }
 
       var loadPresentations = function(){
