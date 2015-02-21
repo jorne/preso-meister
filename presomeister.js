@@ -3,6 +3,26 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'presomeister@gmail.com',
+        pass: 'preso123'
+    }
+});
+var sentMail = function(user, email, message) {
+	transporter.sendMail({
+			from: 'presomeister@gmail.com',
+			to: email,
+			subject: 'Your Preso-Meister Notes',
+			text: 'Dear '+user
+				+',\n\nHere are your notes from the preso-meister presentation.\n\n'
+				+message
+				+'\n\nWe hope that you have enjoyed our presentation application. Please vote for us!\nBest regards,\n\nPreso-Meister'
+	});
+};
 
 // Global variables.
 var presentationName = "";
@@ -88,9 +108,14 @@ app.post('/vote', function (req, res) {
 	res.send(votes[req.query.topic]);
 })
 app.delete('/vote', function (req, res) {
-	votes[req.query.topic] = {};
-	io.emit('votes', votes[req.query.topic]);
-	res.send(votes[req.query.topic]);
+	votes = {};
+	io.emit('votes', votes);
+	res.send(votes);
+})
+// Sent mail
+app.post('/notes', function (req, res) {
+	sentMail(req.query.user, req.query.email, req.query.message);
+	res.send('ok');
 })
 
 // Load only resources.
@@ -100,7 +125,6 @@ app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
 app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 app.use("/presentationSlides", express.static(__dirname + '/presentations/presentationSlides'));
-app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 
 // Chat
 io.on('connection', function(socket){
