@@ -6,10 +6,12 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         $scope.presentationLoaded = false;
 
         $scope.presentations = [];
+
         $scope.voteCountYes = 0;
         $scope.voteCountNo  = 0;
         $scope.voteYesWidth = 50;
         $scope.voteNoWidth  = 50;
+
         $scope.voted = 0;
         reloadJavascriptVariables();
         $scope.takingNotes = false;
@@ -125,7 +127,10 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
           // console.log(url);
           $http.delete(url).
             success(function(data) {
-                //
+              $scope.voteCountYes = 0;
+              $scope.voteCountNo  = 0;
+              $scope.voteYesWidth = 50;
+              $scope.voteNoWidth  = 50;
             }).
             error(function(data) {
                 //console.log(data)

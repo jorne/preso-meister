@@ -8,8 +8,8 @@
             voteYesWidth}}%"><span>{{voteCountYes}}</span></div>
             <div style="background-color:red; float:right; text-align:right; overflow:visible; width:{{voteNoWidth}}% "><span>{{voteCountNo}}</span></div>
             <form>
-                <button ng-disabled="voted" ng-click="$parent.vote('CapathonRulez', 'yes')">Yes!</button>
-                <button ng-disabled="voted" ng-click="$parent.vote('CapathonRulez', 'no')">No.</button>
+                <button ng-disabled="voted" ng-click="$parent.vote('CapathonRulez', 'yes')" class="voteButton yesButton">Yes!</button>
+                <button ng-disabled="voted" ng-click="$parent.vote('CapathonRulez', 'no')" class="voteButton noButton">No.</button>
             </form>
         </div>
         

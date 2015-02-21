@@ -70,10 +70,11 @@
                         <div style="background-color:green; float:left; text-align:left; overflow:visible; width:{{
                         voteYesWidth}}%"><span>{{voteCountYes}}</span></div>
                         <div style="background-color:red; float:right; text-align:right; overflow:visible; width:{{voteNoWidth}}% "><span>{{voteCountNo}}</span></div>
-                        <form>
-                            <button ng-disabled="voted" ng-click="$parent.vote('IsThisCool', 'yes')">Yes!</button>
-                            <button ng-disabled="voted" ng-click="$parent.vote('IsThisCool', 'no')">No.</button>
-                        </form>
+                        <div class="voteButtons">
+                            <div ng-disabled="voted" ng-click="$parent.vote('IsThisCool', 'yes')" class="voteButton yesButton">Yes!</div>
+                            <div ng-disabled="voted" ng-click="$parent.vote('IsThisCool', 'no')" class="voteButton noButton">No.</div>
+                        </div>
+
                     </div>
 
                 </section>
