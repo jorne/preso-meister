@@ -27,7 +27,7 @@ var addVote = function (topic, value) {
 	} else {
 		votes[topic] = {};
 	}
-	
+
 	var v = votes[topic][value];
 	if (v && v >= 0) {
 		votes[topic][value]++;
@@ -100,6 +100,7 @@ app.use("/lib", express.static(__dirname + '/FRONT/lib'));
 app.use("/plugin", express.static(__dirname + '/FRONT/plugin'));
 app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 app.use("/presentationSlides", express.static(__dirname + '/presentations/presentationSlides'));
+app.use("/partials", express.static(__dirname + '/FRONT/partials'));
 
 // Chat
 io.on('connection', function(socket){

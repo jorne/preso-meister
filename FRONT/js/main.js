@@ -164,20 +164,28 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         });
       }
 
-
       initizalize();
     }
   ]);
 
   app.controller('question', ['$scope',
     function($scope) {
-      var questionRaised = false;
+      $scope.questionRaised = false;
       $scope.ask = function(){
-        console.log('question: ' + $scope.userName);
-        questionRaised = true;
-        socket.emit('question', $scope.userName);
-        console.log('question: ' + $scope.userName);
-      }
+        $scope.questionRaised = !$scope.questionRaised;
+        var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
+        console.log(msg);
+        // msg.userName = $scope.userName;
+        // msg.questionRaised = $scope.questionRaised;
+        socket.emit('question', msg);
+        console.log('question: ' + msg);
+      };
+
+      socket.on('question', function(msg){
+        console.log('received question from: ' + msg.userName);
+        //meisterSlide = msg;
+      });
+
     }
   ]);
 
