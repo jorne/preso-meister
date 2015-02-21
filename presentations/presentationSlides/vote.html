@@ -3,8 +3,9 @@
 	<section class="light">
 		<h1>Capathon rulez</h1>
         
-        <div onload="alert('loadVote');$parent.initializeVote('CapathonRules')" style="width:80%; clear:both; background-color:gray; height:80px; margin:0 auto; padding:10px; ">
-            <div style="background-color:green; float:left; text-align:left; overflow:visible; width:{{voteYesWidth}}%"><span>{{voteCountYes}}</span></div>
+        <div style="width:80%; clear:both; background-color:gray; height:80px; margin:0 auto; padding:10px; ">
+            <div style="background-color:green; float:left; text-align:left; overflow:visible; width:{{
+            voteYesWidth}}%"><span>{{voteCountYes}}</span></div>
             <div style="background-color:red; float:right; text-align:right; overflow:visible; width:{{voteNoWidth}}% "><span>{{voteCountNo}}</span></div>
             <form>
                 <button ng-disabled="voted" ng-click="$parent.vote('CapathonRulez', 'yes')">Yes!</button>
