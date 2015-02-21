@@ -94,7 +94,7 @@ public class Argenta
 	
 	public void clickOnIHaveAQuestion()
 	{
-		browser.findElement(By.cssSelector("[ng-click=\"ask()\"]")).click();
+		browser.findElement(By.cssSelector("[class=\"buttonStyle leftButton\"][ng-hide=\"questionRaised\"] [ng-click=\"ask()\"]")).click();
 		
 		utils.wd.doWait(5);
 	}
