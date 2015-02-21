@@ -127,10 +127,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
           // console.log(url);
           $http.delete(url).
             success(function(data) {
-              $scope.voteCountYes = 0;
-              $scope.voteCountNo  = 0;
-              $scope.voteYesWidth = 50;
-              $scope.voteNoWidth  = 50;
             }).
             error(function(data) {
                 //console.log(data)
@@ -138,8 +134,19 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       }
 
       socketio.on('votes', function(data){
+        if (angular.isDefined(data.yes)){
           $scope.voteCountYes = data.yes;
-          $scope.voteCountNo  = data.no;
+        }else{
+          $scope.voteCountYes = 0;
+        }
+        if (angular.isDefined(data.no)){
+            $scope.voteCountNo  = data.no;
+        }else{
+          $scope.voteCountNo  = 0;
+        }
+
+          console.log($scope.voteCountYes)
+          console.log($scope.voteCountNo)
 
           $scope.voteYesWidth = $scope.voteCountYes / ($scope.voteCountYes + $scope.voteCountNo) * 100;
           $scope.voteNoWidth  = $scope.voteCountNo / ($scope.voteCountYes + $scope.voteCountNo) * 100;
