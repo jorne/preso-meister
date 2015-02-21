@@ -1,0 +1,9 @@
+Tags:CBP
+Preconditions:Go to environment <Environment>
+Argenta:
+#Enter username <Username>
+#Enter password <Password>
+#Click on login
+#Choose presentation <Presentation>
+#Click on vote yes
+#Click on vote no
