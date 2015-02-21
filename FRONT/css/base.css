@@ -206,6 +206,11 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   -moz-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
 }
+.question button{
+  background: #00a160;
+  border-radius:50%;
+  border:10px solid #82949a;
+}
 
 .leftButton{
   position: absolute;
@@ -248,6 +253,7 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   position: relative;
   color: #a94442;
   padding: 5px;
+  z-index: 40;
 }
 .outOfSync{
 }
