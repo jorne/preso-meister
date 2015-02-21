@@ -5,6 +5,10 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
         $scope.presentations = [];
+        $scope.voteCountYes = 0;
+        $scope.voteCountNo  = 0;
+        $scope.voteYesWidth = 0;
+        $scope.voteNoWidth  = 0;
       }
 
       $scope.setType = function(type){
@@ -94,7 +98,11 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
       socketio.on('votes', function(data){
           $scope.voteCountYes = data.yes;
           $scope.voteCountNo  = data.no;
-          console.log(data);
+          
+          $scope.voteYesWidth = $scope.voteCountYes / ($scope.voteCountYes + $scope.voteCountNo) * 100;
+          $scope.voteNoWidth  = $scope.voteCountNo / ($scope.voteCountYes + $scope.voteCountNo) * 100;
+          
+          //console.log($scope.voteCountYes, $scope.voteCountNo);
       });
       
 
