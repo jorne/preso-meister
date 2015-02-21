@@ -1,6 +1,7 @@
 <div class="logIn" ng-hide="loggedIn">
 	<div id="mainlogin" class="buttonStyle">
-		<h3>Enter username</h3>
+		<h3 ng-hide="type === 'meister'">Enter username</h3>
+		<h3 ng-show="type === 'meister'">Enter username and password</h3>
 		<form >
 			<input type="text" placeholder="username" value="" ng-model="$parent.userName" autofocus required>
 			<input class="password" type="password" placeholder="password" value="" ng-model="$parent.password" required ng-show="type === 'meister'" >
