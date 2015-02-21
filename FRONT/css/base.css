@@ -248,6 +248,21 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
 .outOfSync{
 }
 
+.questionsContainer{
+  width: 100%;  
+  background-image: -webkit-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+  background-image:      -o-linear-gradient(top, #fcf8e3 0%, #f8efc0 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fcf8e3), to(#f8efc0));
+  background-image:         linear-gradient(to bottom, #fcf8e3 0%, #f8efc0 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffcf8e3', endColorstr='#fff8efc0', GradientType=0);
+  background-repeat: repeat-x;
+  border-color: #f5e79e;
+  text-align: center;
+  position: relative;
+  color: #8a6d3b;
+  padding: 5px;
+}
+
 .notesOverlay{
   width: 100%;
   height:100%;
