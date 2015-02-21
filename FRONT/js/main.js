@@ -1,14 +1,16 @@
 var app = angular.module('app', []);
-app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
-    function($scope, $http, $timeout, socketio) {
+app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$window',
+    function($scope, $http, $timeout, socketio, $window) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
+
         $scope.presentations = [];
         $scope.voteCountYes = 0;
         $scope.voteCountNo  = 0;
         $scope.voteYesWidth = 0;
         $scope.voteNoWidth  = 0;
+        reloadJavascriptVariables();
       }
 
       $scope.setType = function(type){
@@ -105,6 +107,12 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
           //console.log($scope.voteCountYes, $scope.voteCountNo);
       });
       
+      var reloadJavascriptVariables= function(){
+        $scope.following = $window.following;
+        $timeout(function() {
+          reloadJavascriptVariables();
+        }, 1000);
+      }
 
       var loadPresentations = function(){
         var url = '/presentations/';
