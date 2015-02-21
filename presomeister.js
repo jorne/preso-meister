@@ -27,6 +27,7 @@ var sentMail = function(user, email, message) {
 // Global variables.
 var presentationName = "";
 var votes = {};
+var regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // Global functions.
 var checkAuth = function (req, res, next) {
@@ -114,8 +115,13 @@ app.delete('/vote', function (req, res) {
 })
 // Sent mail
 app.post('/notes', function (req, res) {
-	sentMail(req.query.user, req.query.email, req.query.message);
-	res.send('ok');
+	var email = req.query.email;
+	if (regexEmail.test(email)) {
+		sentMail(req.query.user, email, req.query.message);
+		res.send('ok');
+	} else {
+		res.send('error');
+	}
 })
 
 // Load only resources.
