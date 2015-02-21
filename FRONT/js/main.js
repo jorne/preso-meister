@@ -77,13 +77,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       $scope.choosePresentation = function(name){
         setPresentationName(name);
       }
-
-      $scope.getImageUrl = function(name){
-        var urlArray  = name.split('.html');
-        var url = '/presentationSlides/' + urlArray[0] + '.jpg';
-        console.log(url);
-        return url;
-      }
       
       // Voting
       $scope.vote = function(topic, value){
@@ -131,7 +124,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=' + presentationName;
         $http.post(url).
           success(function(data) {
-            console.log('presentationName is set');
             setSlides(presentationName);
           }).
           error(function(data) {
