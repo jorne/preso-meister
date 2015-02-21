@@ -111,7 +111,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
 
       var initializeVote = function(){
           var url = '/vote';
-          console.log(url);
+          // console.log(url);
           $http.delete(url).
             success(function(data) {
                 //
@@ -134,7 +134,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       $scope.questions = [];
       // Receive question messages
       socketio.on('question', function(data){
-        console.log('received question from: ' + data.userName);
+        // console.log('received question from: ' + data.userName);
         if(data.questionRaised) {
           $scope.questions.push(data.userName);
         } else {
@@ -212,9 +212,9 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       $scope.ask = function(){
         $scope.questionRaised = !$scope.questionRaised;
         var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
-        console.log(msg);
+        // console.log(msg);
         socketio.emit('question', msg, true);
-        console.log('question: ' + msg);
+        // console.log('question: ' + msg);
 
       };
 
