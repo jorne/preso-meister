@@ -1,15 +1,17 @@
 var app = angular.module('app', []);
-app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
-    function($scope, $http, $timeout, socketio) {
+app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$window',
+    function($scope, $http, $timeout, socketio, $window) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
+
         $scope.presentations = [];
         $scope.voteCountYes = 0;
         $scope.voteCountNo  = 0;
         $scope.voteYesWidth = 50;
         $scope.voteNoWidth  = 50;
         $scope.voted = 0;
+        reloadJavascriptVariables();
       }
 
       $scope.setType = function(type){
@@ -77,13 +79,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
       $scope.choosePresentation = function(name){
         setPresentationName(name);
       }
-
-      $scope.getImageUrl = function(name){
-        var urlArray  = name.split('.html');
-        var url = '/presentationSlides/' + urlArray[0] + '.jpg';
-        console.log(url);
-        return url;
-      }
       
       // Voting
       $scope.vote = function(topic, value){
@@ -119,6 +114,12 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
           //console.log($scope.voteCountYes, $scope.voteCountNo);
       });
       
+      var reloadJavascriptVariables= function(){
+        $scope.following = $window.following;
+        $timeout(function() {
+          reloadJavascriptVariables();
+        }, 1000);
+      }
 
       var loadPresentations = function(){
         var url = '/presentations/';
@@ -137,7 +138,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         var url = '/presentationName/?user=' + $scope.userName + '&password=' + $scope.password + '&presentationName=' + presentationName;
         $http.post(url).
           success(function(data) {
-            console.log('presentationName is set');
             setSlides(presentationName);
           }).
           error(function(data) {
@@ -170,20 +170,28 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         });
       }
 
-
       initizalize();
     }
   ]);
 
   app.controller('question', ['$scope',
     function($scope) {
-      var questionRaised = false;
+      $scope.questionRaised = false;
       $scope.ask = function(){
-        console.log('question: ' + $scope.userName);
-        questionRaised = true;
-        socket.emit('question', $scope.userName);
-        console.log('question: ' + $scope.userName);
-      }
+        $scope.questionRaised = !$scope.questionRaised;
+        var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
+        console.log(msg);
+        // msg.userName = $scope.userName;
+        // msg.questionRaised = $scope.questionRaised;
+        socket.emit('question', msg);
+        console.log('question: ' + msg);
+      };
+
+      socket.on('question', function(msg){
+        console.log('received question from: ' + msg.userName);
+        //meisterSlide = msg;
+      });
+
     }
   ]);
 

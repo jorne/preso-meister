@@ -2,8 +2,7 @@
 <html lang="en" ng-app="app">
 	<head>
 		<meta charset="utf-8">
-
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Preso-meister - The awesome presentation tool</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -36,6 +35,11 @@
 	</head>
 
 	<body ng-controller="presoController" ng-init="setType('viewer')" ng-cloak>
+	<div ng-show="!following" class="outOfSyncContainer">
+		<h3>You're Out Of Sync</h3>
+		<p>Press the play button in the toolbar to get back in sync.</p>
+
+	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
@@ -54,10 +58,10 @@
 					<span>Hello {{userName}}</span>
 				</div>
 				<div class="buttonStyle leftButton">
-					<button onclick="follow()" id="" ng-show="type === 'viewer'"><i class="fa fa-caret-right"></i></button>
-				</div>
-				<div class="buttonStyle secondLeftButton">
 					<button ng-controller="question" ng-click="ask()"><i class="fa fa-question"></i></button>
+				</div>
+				<div class="buttonStyle secondLeftButton" ng-show="!following">
+					<button onclick="follow()" id="" ng-show="type === 'viewer'" ><i class="fa fa-caret-right"></i></button>
 				</div>
 				<div class="buttonStyle leftButton">
 					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
@@ -65,8 +69,7 @@
 			</div>
 		</div>
 
-
-        <script src="lib/js/head.min.js"></script>
+		<script src="lib/js/head.min.js"></script>
 		<script src="lib/js/reveal.js"></script>
 		<script src="lib/js/angular.js"></script>
 		<script src="js/main.js"></script>
@@ -90,7 +93,7 @@
 				location.reload();
       		});
 
-			var follow = function() {
+			var follow = function() {44
 				following = true;
 				window.location.hash = meisterSlide;
 			}
