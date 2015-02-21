@@ -16,6 +16,8 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
         $scope.notes = "";
         $scope.emailAddress = '';
         $scope.messageSent = '';
+        $scope.questionRaised = false;
+
       }
 
       $scope.setType = function(type){
@@ -107,6 +109,15 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
             error(function(data) {
                 //console.log(data)
             });
+      }
+
+      $scope.ask = function(){
+        $scope.questionRaised = !$scope.questionRaised;
+        var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
+        // console.log(msg);
+        socketio.emit('question', msg, true);
+        // console.log('question: ' + msg);
+
       }
 
       var initializeVote = function(){
@@ -202,31 +213,6 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio', '$
       }
 
       initizalize();
-    }
-  ]);
-
-  app.controller('question', ['$scope','socketio',
-    function($scope, socketio) {
-
-      $scope.questionRaised = false;
-      $scope.ask = function(){
-        $scope.questionRaised = !$scope.questionRaised;
-        var msg = {userName:$scope.userName, questionRaised:$scope.questionRaised};
-        // console.log(msg);
-        socketio.emit('question', msg, true);
-        // console.log('question: ' + msg);
-
-      };
-
-
-
-      // socket.on('question', function(msg){
-      //   console.log('received question from: ' + msg.userName);
-      //   //meisterSlide = msg;
-      // });
-
-
-
     }
   ]);
 
