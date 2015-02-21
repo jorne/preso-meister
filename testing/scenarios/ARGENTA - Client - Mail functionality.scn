@@ -1,0 +1,9 @@
+Tags:CBP
+Preconditions:Go to environment <Environment>
+Argenta:
+#Enter username <Username>
+#Click on login
+#Verify username
+#Click on taking notes
+#Fill in Email form <Notes> <Email>
+#Click on send Email
