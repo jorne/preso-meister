@@ -7,8 +7,9 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
         $scope.presentations = [];
         $scope.voteCountYes = 0;
         $scope.voteCountNo  = 0;
-        $scope.voteYesWidth = 0;
-        $scope.voteNoWidth  = 0;
+        $scope.voteYesWidth = 50;
+        $scope.voteNoWidth  = 50;
+        $scope.voted = 0;
       }
 
       $scope.setType = function(type){
@@ -52,6 +53,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
                 if (data === "ok"){
                       $scope.loggedIn = true;
                       Reveal.setUserType($scope.type);
+                      initializeVote();
                       loadPresentations();
                 }else{
                       $scope.password = "";
@@ -85,10 +87,22 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
       
       // Voting
       $scope.vote = function(topic, value){
-          var url = '/vote?topic=' + topic + '&value=' + value;  
+          var url = '/vote?topic=' + topic + '&value=' + value;
           $http.post(url).
             success(function(data) {
+                $scope.voted = 1;
+            }).
+            error(function(data) {
                 //console.log(data)
+            });
+      }
+      
+      $scope.initializeVote = function(){
+          var url = '/vote;
+          console.log(url);
+          $http.delete(url).
+            success(function(data) {
+                //
             }).
             error(function(data) {
                 //console.log(data)
