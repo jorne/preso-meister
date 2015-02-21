@@ -36,8 +36,7 @@
 
 	<body ng-controller="presoController" ng-init="setType('viewer')" ng-cloak>
 	<div ng-show="!following" class="outOfSyncContainer">
-		<h3>You're Out Of Sync</h3>
-		<p>Press the play button in the toolbar to get back in sync.</p>
+		<span>You're Out Of Sync. Press the play button in the toolbar to get back in sync.</span>
 	</div>
 	<div class="notesOverlay" ng-show="takingNotes">
 		<div class="notesContainer">
@@ -47,7 +46,7 @@
 			<input type="text" ng-model="email">
 			<button type="submit" ng-click="emailNotes()" ng-disabled="email === ''">Send notes to email</button>
 			<h3 ng-show="messageSent" style="color:green;">Message has been sent.</h3>
-		</div>	
+		</div>
 	</div>
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
@@ -63,11 +62,14 @@
 				</div>
 			</div>
  			<div class="buttonsBackground">
-				<div class="userName buttonStyle stopPresentati">
-					<span>Hello {{userName}}</span>
+				<div class="userName buttonStyle">
+					<span style="font-size:24px;">Hello {{userName}}</span>
 				</div>
-				<div class="buttonStyle leftButton">
-					<button ng-controller="question" ng-click="ask()"><i class="fa fa-question"></i></button>
+				<div class="buttonStyle leftButton question" ng-show="questionRaised">
+					<button  ng-click="ask()" ><i class="fa fa-question"></i></button>
+				</div>
+				<div  class="buttonStyle leftButton" ng-hide="questionRaised">
+					<button  ng-click="ask()" ><i class="fa fa-question"></i></button>
 				</div>
 				<div class="buttonStyle secondLeftButton" ng-show="!following">
 					<button onclick="follow()" id="" ng-show="type === 'viewer'" ><i class="fa fa-caret-right"></i></button>
@@ -92,7 +94,7 @@
 			var following = true;
 
       		socket.on('slidenav', function(msg){
-				console.log('slidenav: ' + msg + ' following: ' + following);
+				// console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
@@ -101,11 +103,11 @@
 
 
       		socket.on('presentationStopped', function(msg){
-				console.log(msg);
+				// console.log(msg);
 				location.reload();
       		});
 
-			var follow = function() {44
+			var follow = function() {
 				following = true;
 				window.location.hash = meisterSlide;
 			}

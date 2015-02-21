@@ -36,15 +36,14 @@
 	</head>
 
 	<body ng-controller="presoController" ng-init="setType('meister')" ng-cloak>
-		<div class="notesOverlay" ng-show="takingNotes">
-		<div class="notesContainer">
-			<h3>Enter your notes here:</h3>
-			<textarea rows="10" cols="80" ng-model="notes"></textarea>
-			<h3>Enter your email:</h3>
-			<input type="text" ng-model="email">
-			<button type="submit" ng-click="emailNotes()">Send notes to email</button>
-		</div>	
+	<div class="questionsContainer" ng-show="questions.length > 0 ">
+		<span ng-repeat="user in questions">
+			<span>{{user}} {{$last ? '' : ($index==questions.length-2) ? ' and ' : ', '}}</span>
+		</span>
+		<span ng-show="questions.length>1"> are having questions.</span>
+		<span ng-show="questions.length == 1"> is having a question.</span>
 	</div>
+
 	<div ng-include="'partials/login.html'"></div>
 		<div class="reveal" ng-show="loggedIn">
 			<!-- Any section element inside of this container is displayed as a slide -->
@@ -58,7 +57,7 @@
  			<div class="buttonsBackground">
 				<div class="userName">
 					<button onclick="follow()" id="" ng-show="type === 'viewer'">Follow</button>
-					<span>Hello {{userName}}</span>
+					<span style="font-size:24px;">Hello {{userName}}</span>
 				</div>
 				<div class="buttonStyle leftButton">
 					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
@@ -73,20 +72,20 @@
 		<script src="js/main.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
-      		
+
       		socket = io();
 			var meisterSlide;
 			var following = true;
 
       		socket.on('slidenav', function(msg){
-				console.log('slidenav: ' + msg + ' following: ' + following);
+				// console.log('slidenav: ' + msg + ' following: ' + following);
 				meisterSlide = msg;
 				if(following) {
 					follow();
 				}
       		});
       		socket.on('presentationStopped', function(msg){
-				console.log(msg);
+				// console.log(msg);
 				location.reload();
       		});
 

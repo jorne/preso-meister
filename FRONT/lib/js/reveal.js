@@ -2949,12 +2949,12 @@
 
 				if(config.type === "meister") {
 					socket.emit('slidenav', url);
-					console.log('slidenav: ' + url);
+					// console.log('slidenav: ' + url);
 				}
 
 				if(config.type === "viewer") {
 					if( meisterSlide !== url && meisterSlide !== undefined) {
-						console.log('Setting following to false');
+						// console.log('Setting following to false');
 						following = false;
 					}
 				}
