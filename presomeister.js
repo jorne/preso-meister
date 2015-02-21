@@ -87,6 +87,11 @@ app.post('/vote', function (req, res) {
 	io.emit('votes', votes[req.query.topic]);
 	res.send(votes[req.query.topic]);
 })
+app.delete('/vote', function (req, res) {
+	votes[req.query.topic] = {};
+	io.emit('votes', votes[req.query.topic]);
+	res.send(votes[req.query.topic]);
+})
 
 // Load only resources.
 app.use("/css", express.static(__dirname + '/FRONT/css'));
