@@ -1,7 +1,6 @@
 var app = angular.module('app', []);
-
-app.controller('presoController', ['$scope', '$http', '$timeout',
-    function($scope, $http, $timeout) {
+app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
+    function($scope, $http, $timeout, socketio) {
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
@@ -79,6 +78,25 @@ app.controller('presoController', ['$scope', '$http', '$timeout',
         console.log(url);
         return url;
       }
+      
+      // Voting
+      $scope.vote = function(topic, value){
+          var url = '/vote?topic=' + topic + '&value=' + value;  
+          $http.post(url).
+            success(function(data) {
+                //console.log(data)
+            }).
+            error(function(data) {
+                //console.log(data)
+            });
+      }
+      
+      socketio.on('votes', function(data){
+          $scope.voteCountYes = data.yes;
+          $scope.voteCountNo  = data.no;
+          console.log(data);
+      });
+      
 
       var loadPresentations = function(){
         var url = '/presentations/';
@@ -161,3 +179,28 @@ app.filter('split', function() {
             return input.split(splitChar)[splitIndex];
         }
     });
+
+
+app.factory('socketio', function ($rootScope) {
+  var socket = io.connect();
+  return {
+    on: function (eventName, callback) {
+      socket.on(eventName, function () {  
+        var args = arguments;
+        $rootScope.$apply(function () {
+          callback.apply(socket, args);
+        });
+      });
+    },
+    emit: function (eventName, data, callback) {
+      socket.emit(eventName, data, function () {
+        var args = arguments;
+        $rootScope.$apply(function () {
+          if (callback) {
+            callback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
+});

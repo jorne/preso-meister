@@ -1,0 +1,25 @@
+<div class="slides" id="slides">
+    
+	<section class="light">
+		<h1>Capathon rulez</h1>
+        
+        <div style="width:80%; clear:both; background-color:gray; height:80px; margin:0 auto; padding:10px; ">
+            <div style="background-color:green; float:left; text-align:left; overflow:visible; "><span>Yes!</span><span ng-model="$parent.voteCountYes"></span></div>
+            <div style="background-color:red; float:right; text-align:right; overflow:visible; "><span ng-model="$parent.voteCountNo"></span><span>No.</span></div>
+        </div>
+        <form>
+            <button ng-click="$parent.vote('CapathonRulez', 'yes')">Yes!</button>
+            <button ng-click="$parent.vote('CapathonRulez', 'no')">No.</button>
+        </form>
+	</section>
+
+    	<!--<div id="mainlogin">
+		<h3>Enter username</h3>
+		<form >
+			<input type="text" placeholder="username" value="" ng-model="$parent.userName" autofocus required>
+			<input class="password" type="password" placeholder="password" value="" ng-model="$parent.password" required ng-show="type === 'meister'" >
+			<button type="submit" ng-click="logIn()"><i class="fa fa-arrow-right"></i></button>
+		</form> -->
+    
+    
+</div>

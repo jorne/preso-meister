@@ -50,14 +50,18 @@
 				</div>
 			</div>
  			<div class="buttonsBackground">
-				<div class="userName">
-					<button onclick="follow()" id="" ng-show="type === 'viewer'">Follow</button>
+				<div class="userName buttonStyle stopPresentati">
 					<span>Hello {{userName}}</span>
 				</div>
-
-				<a href="" ng-controller="question" ng-click="ask()">Question</a>
-
-				<a href="" ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'">STOP PRESENTATION</a>
+				<div class="buttonStyle leftButton">
+					<button onclick="follow()" id="" ng-show="type === 'viewer'"><i class="fa fa-caret-right"></i></button>
+				</div>
+				<div class="buttonStyle secondLeftButton">
+					<button ng-controller="question" ng-click="ask()"><i class="fa fa-question"></i></button>
+				</div>
+				<div class="buttonStyle leftButton">
+					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
+				</div>
 			</div>
 		</div>
 
