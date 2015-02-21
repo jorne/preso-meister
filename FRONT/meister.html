@@ -51,7 +51,9 @@
 					<button onclick="follow()" id="" ng-show="type === 'viewer'">Follow</button>
 					<span>Hello {{userName}}</span>
 				</div>
-				<a href="" ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'">STOP PRESENTATION</a>
+				<div class="buttonStyle leftButton">
+					<button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
+				</div>
 			</div>
 		</div>
 

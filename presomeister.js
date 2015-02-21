@@ -84,6 +84,7 @@ app.get('/vote', function (req, res) {
 })
 app.post('/vote', function (req, res) {
 	addVote(req.query.topic, req.query.value);
+	io.emit('votes', votes[req.query.topic]);
 	res.send(votes[req.query.topic]);
 })
 

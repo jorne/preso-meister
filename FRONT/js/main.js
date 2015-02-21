@@ -1,6 +1,12 @@
 var app = angular.module('app', []);
+<<<<<<< HEAD
 app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
     function($scope, $http, $timeout, socketio) {
+=======
+
+app.controller('presoController', ['$scope', '$http', '$timeout',
+    function($scope, $http, $timeout) {
+>>>>>>> 24f1a080783e0828c93a195c318f8f7f0b7dc83b
       var initizalize = function(){
         $scope.loggedIn = false;
         $scope.presentationLoaded = false;
@@ -22,7 +28,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
           var getPresentationName = function(){
               var url = '/presentationName/';
               $http.get(url).
-                success(function(data){                  
+                success(function(data){
                   if (data === ""){
                     $timeout(function() {
                       getPresentationName();
@@ -42,7 +48,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
             getPresentationName();
           }, 1000);
         }else{
-          var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;  
+          var url = '/meister?user=' + $scope.userName + '&password=' + $scope.password;
           $http.post(url).
             success(function(data) {
                 if (data === "ok"){
@@ -101,7 +107,7 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
       var loadPresentations = function(){
         var url = '/presentations/';
         $http.get(url).
-          success(function(data){                  
+          success(function(data){
             $scope.presentations = data;
           }).
           error(function(data) {
@@ -153,12 +159,25 @@ app.controller('presoController', ['$scope', '$http', '$timeout', 'socketio',
     }
   ]);
 
+  app.controller('question', ['$scope',
+    function($scope) {
+      var questionRaised = false;
+      $scope.ask = function(){
+        console.log('question: ' + $scope.userName);
+        questionRaised = true;
+        socket.emit('question', $scope.userName);
+        console.log('question: ' + $scope.userName);
+      }
+    }
+  ]);
+
 app.filter('split', function() {
         return function(input, splitChar, splitIndex) {
             // do some bounds checking here to ensure it has that index
             return input.split(splitChar)[splitIndex];
         }
     });
+<<<<<<< HEAD
 
 
 app.factory('socketio', function ($rootScope) {
@@ -184,3 +203,5 @@ app.factory('socketio', function ($rootScope) {
     }
   };
 });
+=======
+>>>>>>> 24f1a080783e0828c93a195c318f8f7f0b7dc83b

@@ -64,7 +64,7 @@ transition:0.5s ease;
 box-shadow: 0px 0px 5px 1px #161718;
 }
 
-#mainlogin button
+.buttonStyle button
 {
 background: #ff5f32;
 border-radius:50%;
@@ -86,7 +86,7 @@ text-align:center;
 transition:0.5s ease;
 }
 
-#mainlogin button:hover
+.buttonStyle button:hover
 {
 background:#222526;
 border-color:#ff5f32;
@@ -97,7 +97,7 @@ border-color:#ff5f32;
 transition:0.5s ease;
 }
 
-#mainlogin button i
+.buttonStyle button i
 {
 font-size:20px;
 -webkit-transition:0.5s ease;
@@ -107,7 +107,7 @@ font-size:20px;
 transition:0.5s ease;
 }
 
-#mainlogin button:hover i
+.buttonStyle button:hover i
 {
 color:#ff5f32;
 -webkit-transition:0.5s ease;
@@ -201,4 +201,24 @@ box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   -webkit-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   -moz-box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
   box-shadow: inset 1px 1px 10px 10px rgba(0,0,0,0.35);
+}
+
+.leftButton{
+  position: absolute;
+  bottom: 145px;
+  left: 50px;
+}
+.secondLeftButton{
+  position: absolute;
+  bottom: 145px;
+  left: 150px;
+}
+.fa.fa-square{
+  font-size: 50px;
+}
+.fa.fa-caret-right{
+  font-size: 50px;
+}
+.fa.fa-question{
+  font-size: 50px;
 }
