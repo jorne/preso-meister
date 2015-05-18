@@ -1,0 +1,31 @@
+<div class="reveal" ng-show="loggedIn">
+    <div data-ng-include src="incPresentationUrl" onload="finishedLoading()" ng-show="presentationLoaded"></div>
+    <div id="presentationInactiveContainer">
+    <div id="presentationInactive" ng-show="!presentationLoaded && type === 'viewer'">There is no presentation active</div>
+    </div>
+    <div id="presentationsOverview" ng-show="!presentationLoaded && type === 'meister'">
+    <div id="presentationSelector" ng-repeat="presentation in presentations" ng-click="choosePresentation(presentation)">
+    <i class="fa fa-picture-o "></i>
+    <span>{{presentation | split:'.html':0}}</span>
+    </div>
+    </div>
+    <div class="buttonsBackground">
+    <div class="userName buttonStyle">
+    <span style="font-size:24px;">Hello {{userName}}</span>
+    </div>
+    <div class="buttonStyle leftButton question" ng-show="questionRaised">
+    <button  ng-click="ask()" ><i class="fa fa-question"></i></button>
+    </div>
+    <div  class="buttonStyle leftButton" ng-hide="questionRaised">
+    <button  ng-click="ask()" ><i class="fa fa-question"></i></button>
+    </div>
+    <div class="buttonStyle secondLeftButton" ng-show="!following">
+    <button onclick="follow()" id="" ng-show="type === 'viewer'" ><i class="fa fa-caret-right"></i></button>
+    </div>
+    <div class="buttonStyle leftButton">
+    <button ng-click="stopPresentation()" ng-show="presentationLoaded && type === 'meister'"><i class="fa fa-square"></i></button>
+    </div>
+    <div class="buttonStyle rightButton">
+    </div>
+    </div>
+</div>

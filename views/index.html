@@ -1,5 +1,12 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+<!doctype html>
+<html lang="en" ng-app="presoApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Preso-meister - The awesome presentation tool</title>
+        <script src="public/javascipt/main.js"></script>
+    </head>
+    <body ng-controller="presoController">
+        <div ng-include="'partials/login.html'"></div>
+        <div ng-include="'partials/reveal.html'"></div>
+    </body>
+</html>
