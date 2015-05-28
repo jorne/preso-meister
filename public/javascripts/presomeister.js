@@ -30,7 +30,7 @@ app.controller('presoController', ['$scope',
         
         // Initialize.
         var initizalize = function(){
-            initializeReveal();
+            //initializeReveal();
         };
         
         // Start app.
